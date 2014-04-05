@@ -1,6 +1,6 @@
 qdb = require '../models/qa'
 locationsdb = require '../models/locations'
-subscription = require 'subscription'
+subscription = require './subscription'
 async = require 'async'
 
 postQuestion = (data, socket, done) ->
@@ -15,11 +15,11 @@ postQuestion = (data, socket, done) ->
 						done null, resp
 				,
 				addQuestiontoPlace: (done) ->
-					locationsdb.addQuestion data.place_id, resp._id, (err, data) ->
+					locationsdb.addQuestion data.place_id, resp._id, (err, dataResp) ->
 						if err? 
 							done err
 						else
-							done null data
+							done dataResp
 			],
 			(err, results) ->
 				if err? and err.length > 0

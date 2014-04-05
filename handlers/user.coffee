@@ -1,5 +1,5 @@
 user = require '../models/user'
-utils = require 'utils'
+utils = require './utils'
 
 login = (data, socket, done) ->
 	user.byUserName data.userName , (err, resp) ->

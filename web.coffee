@@ -1,10 +1,10 @@
 #configure apis
+app = require('express')()
+server = require('http').createServer(app)
+io = require('socket.io').listen(server)
+handler = require('./handlers/configure')
 
-app = require('express').createServer()
-io = require('socket.io').listen(app)
-handler = require('handlers/configure')
-
-app.listen(3000)
+server.listen(3000)
 
 handler.configure io, (err) -> 
 	if err 
