@@ -19,7 +19,7 @@ module.exports = {
 								for user in res.users
 									mapping.getMapping user, (socket) ->
 										if socket?
-											socket.emit '/stream' resp
+											socket.emit '/stream', resp
 						#subscription.subscribe resp._id, socket, () ->
 						#	console.log 'Entered 1'
 						#	done null, resp
@@ -50,7 +50,7 @@ module.exports = {
 					if not err?
 						mapping.getMapping res.user, (socket) ->
 							if socket?
-								socket.emit '/stream' resp
+								socket.emit '/stream', resp
 				#subscription.sendAnswer resp, socket
 				#done null, resp
 }
