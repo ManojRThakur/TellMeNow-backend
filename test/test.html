@@ -1,9 +1,17 @@
 <script src="http://127.0.0.1:3000/socket.io/socket.io.js"> </script>
 <script>
   var socket = io.connect('http://127.0.0.1:3000/');
-  var token = {
-	token: "CAAUNgmcrga4BAKWtOcb5lQXbzN7aKZA2vaLIkxR47VZAhoCe8UB0OCkJQ0qUNqGwxGxFLkUGsX7TRoBtPYJ9EPuosNZCmpJu6Aig7ld2BhWmGiLZAGi5spYcdIyopgwkWgeTgjqdjZCHiZBtymjB29PUDzcA6UCdpyhyZB0yaFjaFiOrqk3ipkA8YZBqTZAEYuqOY4Jfqu5AZCRgZDZD"
-  };
+  socket.on('connect', function() {
+    var token = {
+    token: "CAAUNgmcrga4BAMNKhmw20VtYB0gbNwjJtth5OhKVVx0O1enjfauBgfi6pq69YsXAwQqfckjnrKWL98gFVy1SdzajN9FtwKkbf5WSYZBqH0oyRHG7doVnZBnLfGSOGAjl83zCSvMtF6hurpZALe5GuNfg78ZCwN3vDyUZBu6lxrwmbrPdJPcR7ZAFb9PGigPFCxulJJxRpsqwZDZD"
+    };
+    socket.emit('/user/login', token, function(data) {
+      console.log(JSON.signify.data);
+    })
+  });
+  //var token = {
+	//token: "CAAUNgmcrga4BAMNKhmw20VtYB0gbNwjJtth5OhKVVx0O1enjfauBgfi6pq69YsXAwQqfckjnrKWL98gFVy1SdzajN9FtwKkbf5WSYZBqH0oyRHG7doVnZBnLfGSOGAjl83zCSvMtF6hurpZALe5GuNfg78ZCwN3vDyUZBu6lxrwmbrPdJPcR7ZAFb9PGigPFCxulJJxRpsqwZDZD"
+  //};
   
   var req = {
   	text: "What the Fuck? ",

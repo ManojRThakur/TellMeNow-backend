@@ -17,8 +17,8 @@ exports.postComment = (data, callback) ->
 		return callback null, ques
 
 
-exports.getQuestion = (data, callback) ->
-	schema.Question.findOne _id: data._id, (err, ques) -> 
+exports.getQuestion = (id, callback) ->
+	schema.Question.findOne _id: id, (err, ques) -> 
 		return callback err if err?
 		return callback null, ques
 

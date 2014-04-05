@@ -2,6 +2,7 @@ qdb = require '../models/qa'
 locationsdb = require '../models/location'
 subscription = require './subscription'
 async = require 'async'
+mapping = require './mapping'
 
 module.exports = {
 	postQuestion  : (data, socket, done) ->
@@ -13,9 +14,15 @@ module.exports = {
 				#subscribe , add in place table 
 				async.series [
 					(done) ->
-						subscription.subscribe resp._id, socket, () ->
-							console.log 'Entered 1'
-							done null, resp
+						locationsdb.getLocation resp._id, (err,res) ->
+							if not err?
+								for user in res.users
+									mapping.getMapping user, (socket) ->
+										if socket?
+											socket.emit '/stream' resp
+						#subscription.subscribe resp._id, socket, () ->
+						#	console.log 'Entered 1'
+						#	done null, resp
 					,
 					(done) ->
 						question = {_id: data.place, questions : resp._id}
@@ -39,6 +46,11 @@ module.exports = {
 			if err
 				done err, null
 			else
-				subscription.sendAnswer resp, socket
-				done null, resp
+				qdb.getQuestion resp._id, (err, res) ->
+					if not err?
+						mapping.getMapping res.user, (socket) ->
+							if socket?
+								socket.emit '/stream' resp
+				#subscription.sendAnswer resp, socket
+				#done null, resp
 }
