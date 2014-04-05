@@ -90,7 +90,6 @@ module.exports = {
 					if data.place?
 						module.exports.makeLocation data.place, (dbLoc) ->
 							location.postLocationByFacebookId dbLoc.facebookId, dbLoc, (err, loc) ->	
-								console.log loc								
 								if err? 
 									console.log err
 								else 
@@ -98,14 +97,23 @@ module.exports = {
 										location.postLocation dbLoc, (err, loc) ->
 											if err? 
 												console.log err
-										console.log 'Success for location : {#resp.facebookId}'  
+											console.log 'Success for location : {#resp.facebookId}'  
+											userIds = userId
+											console.log userIds
+											location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
+												if err? 
+													console.log err
+												else 
+													console.log 'Success for adding checked in user : {#userId}'
 									else
-										userIds = [userId]
+										userIds = userId
+										console.log userIds
 										location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
 											if err? 
 												console.log err
 											else 
-												console.log 'Success for adding checked in user : {#userId}'  	    						
+												console.log 'Success for adding checked in user : {#userId}'
+	    						
 }
 					
  

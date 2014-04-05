@@ -11,25 +11,25 @@ exports.postUserInfo = (data, callback) ->
 		return callback null, use
 
 
-exports.updateUserNotification = (req, callback) ->
+exports.updateUserNotification = (data, callback) ->
 	schema.User.findOneAndUpdate {_id: data._id}, notificationsSet: data.notificationsSet, (err, use) ->
 		return callback err if err?
 		return callback null, use
 
 
-exports.updateUserToken = (req, callback) ->
+exports.updateUserToken = (data, callback) ->
 	schema.User.findOneAndUpdate {_id: data._id}, token: data.token, (err, use) ->
 		return callback err if err?
 		return callback null, use
 
 
-exports.incUserReputation = (req, callback) ->
+exports.incUserReputation = (data, callback) ->
 	schema.User.findOneAndUpdate {_id: data._id}, {$inc : {notificationsSet : 1}}, (err, use) ->
 		return callback err if err?
 		return callback null, use
 
 
-exports.decUserReputation = (req, callback) ->
+exports.decUserReputation = (data, callback) ->
 	schema.User.findOneAndUpdate {_id: data._id}, {$dec : {notificationsSet : 1}}, (err, use) ->
 		return callback err if err?
 		return callback null, use

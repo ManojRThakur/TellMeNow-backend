@@ -14,7 +14,7 @@ module.exports = {
 						if err?
 							return done err
 						else
-							utils.populateLocations data.userId, data.token
+							utils.populateLocations resp._id, data.token
 						return done null, resp 
 			else
 				done err, null
