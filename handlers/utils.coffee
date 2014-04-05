@@ -89,7 +89,8 @@ module.exports = {
 				for data in res.data
 					if data.place?
 						module.exports.makeLocation data.place, (dbLoc) ->
-							location.postLocationByFacebookId dbLoc.facebookId, dbLoc, (err, loc) ->									
+							location.postLocationByFacebookId dbLoc.facebookId, dbLoc, (err, loc) ->	
+								console.log loc								
 								if err? 
 									console.log err
 								else 
@@ -98,13 +99,13 @@ module.exports = {
 											if err? 
 												console.log err
 										console.log 'Success for location : {#resp.facebookId}'  
-							#else if loc?
-							#	userIds = [userId]
-							#	location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
-							#		if err? 
-							#			console.log err
-							#		else 
-							#			console.log 'Success for adding checked in user : {#userId}'  	    						
+									else
+										userIds = [userId]
+										location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
+											if err? 
+												console.log err
+											else 
+												console.log 'Success for adding checked in user : {#userId}'  	    						
 }
 					
  

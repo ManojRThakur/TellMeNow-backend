@@ -55,3 +55,18 @@ exports.getLocationByFacebookId = (facebookId, callback) ->
 		return callback err if err?
 		return callback null, pl
 
+exports.upsertUserCheckin = (data, callback) ->
+	console.log data
+	schema.Place.update { facebookId: data.facebookId },
+		$setOnInsert: 
+			facebookId: data.facebookId
+			name: data.name
+			geoLocation:
+				lng: data.geoLocation.lng
+				lat: data.geoLocation.lat 
+		$push: 
+			users: data.userId
+		upsert: true
+	, (err, pl) ->
+		return callback err if err?
+		return callback null, pl
