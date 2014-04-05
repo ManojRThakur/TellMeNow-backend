@@ -49,6 +49,7 @@ mongoose.connection.on 'connected',  ->
 
 	exports.Place = mongoose.model "Places", new mongoose.Schema
 		facebookId: Number
+		name: String
 		geoLocation: 
 			type: [Number]
 			index: '2d'
