@@ -9,7 +9,9 @@ module.exports = {
 		io.sockets.on 'connection', (socket) ->
 			
 			socket.on '/user/login', (data,callback) ->
-				user.login data, socket, (err, resp) ->
+				#token stuff
+				#get user acces token , get the userId , and if userId is present then dont do anything else add the new user
+				user.login data, (err, resp) ->
 					callback
 						error : err
 						response: resp

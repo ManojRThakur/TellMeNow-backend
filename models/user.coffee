@@ -1,12 +1,17 @@
 schema = require './schema'
 
 exports.postUserInfo = (data, callback) ->
-	console.log data
 	user = new schema.User
 		facebookId: data.facebookId
 		token: data.token
 		name: data.name
 	user.save (err, use) ->
+		return callback err if err?
+		return callback null, use
+
+exports.postUserInfoByFacebookId = (facebookId, data, callback) ->
+	facebookId = parseInt(facebookId)
+	schema.User.findOneAndUpdate {facebookId: facebookId}, data, (err, use) ->
 		return callback err if err?
 		return callback null, use
 

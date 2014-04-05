@@ -26,14 +26,13 @@ exports.updateGeoLocation = (data, callback) ->
 
 
 exports.addQuestions = (data, callback) ->
-	console.log data
-	schema.Place.findOneAndUpdate {_id: data._id}, {$push: {questions: data.questions}}, (err, pl) ->
+	schema.Place.findOneAndUpdate {_id: data._id}, {$addToSet: {questions: data.questions}}, (err, pl) ->
 		return callback err if err?
 		return callback null, pl
 
 
 exports.addUsers = (data, callback) ->
-	schema.Place.findOneAndUpdate {_id: data._id}, {$push: {users: data.users}}, (err, pl) ->
+	schema.Place.findOneAndUpdate {_id: data._id}, {$addToSet: {users: data.users}}, (err, pl) ->
 		return callback err if err?
 		return callback null, pl
 

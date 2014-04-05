@@ -49,7 +49,8 @@ mongoose.connection.on 'connected',  ->
 
 
 	Places = new mongoose.Schema
-		facebookId: Number
+		facebookId: 
+			type: Number
 		name: String
 		geoLocation:
 			lng: Number

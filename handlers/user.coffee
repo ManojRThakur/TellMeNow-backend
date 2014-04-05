@@ -2,22 +2,25 @@ user = require '../models/user'
 utils = require './utils'
 
 module.exports = {
-	login : (data, socket, done) ->	
+	login : (data, done) ->	
 		utils.getUserId data.token, (err, resp) ->
 			if not err?
 				data.userId = resp.userId
 				data.token = resp.token
 				data.userName = resp.userName
 				utils.makeUser data , (dbUser) ->
-					user.postUserInfo dbUser, (err, resp) ->
-					#get All checked In places and populate
-						if err?
-							return done err
+					user.postUserInfoByFacebookId dbUser.facebookId, dbUser, (err, res) ->
+						return done err if err?
+						if not res
+							user.postUserInfo dbUser, (err, re) ->
+								return done err if err?
+								utils.populateLocations re._id, data.token
+								return done null, re
 						else
-							utils.populateLocations resp._id, data.token
-						return done null, resp 
+							utils.populateLocations res._id, data.token
+							return done null, res
 			else
-				done err, null
+				return done err
 }
 
 
