@@ -31,4 +31,10 @@
 # How will you ask users to answer question?
 # Users will always have a connection with the server and push the questions on that stream.
 
+# Flow for question posting
+1) add to db 
+2) create room 
+3) return response
+
+
 
