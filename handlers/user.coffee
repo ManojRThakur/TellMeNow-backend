@@ -10,7 +10,7 @@ module.exports = {
 				data.token = resp.longToken
 				data.userName = resp.userName
 				utils.makeUser data , (dbUser) ->
-					user.add dbUser, (err, resp) ->
+					user.postUserInfo dbUser, (err, resp) ->
 					#get All checked In places and populate
 						if err?
 							return done err

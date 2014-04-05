@@ -58,7 +58,7 @@ module.exports = {
 		   		if not res? or res.error?
 		   			console.log 'Could not find user long lived token'
 		   			return done new Error 'Could not find long lived token'
-		   		res.token = res.token #TEST TODO
+		   		res.token = res.access_token #TEST TODO
 		   		return done null, res
     ,
 	makeLocation : (loc, done) ->
