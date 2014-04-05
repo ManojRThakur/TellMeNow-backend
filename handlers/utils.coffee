@@ -72,10 +72,10 @@ module.exports = {
 	,
 	makeUser : (userInfo, done) ->
 		dbUser = {}
-		dbUser.facebookId = userInfo.userId
+		dbUser.facebookId = parseInt userInfo.userId
 		dbUser.name = userInfo.userName
 		dbUser.token = userInfo.token
-		dbUser.notificationsSet = 10
+		dbUser.notificationsSet = 5
 		dbUser.reputation = 0
 		done dbUser
 	,
@@ -100,7 +100,6 @@ module.exports = {
 												console.log err
 											console.log 'Success for location : {#resp.facebookId}'  
 											userIds = userId
-											console.log userIds
 											location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
 												if err? 
 													console.log err
@@ -108,7 +107,6 @@ module.exports = {
 													console.log 'Success for adding checked in user : {#userId}'
 									else
 										userIds = userId
-										console.log userIds
 										location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
 											if err? 
 												console.log err

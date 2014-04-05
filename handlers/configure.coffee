@@ -11,7 +11,7 @@ module.exports = {
 			socket.on '/user/login', (data,callback) ->
 				#token stuff
 				#get user acces token , get the userId , and if userId is present then dont do anything else add the new user
-				user.login data, socket, (err, resp) ->
+				user.login data, (err, resp) ->
 					callback
 						error : err
 						response: resp
