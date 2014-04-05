@@ -1,0 +1,34 @@
+1.	/user/token
+	{
+		accessToken:<token>,
+		uName:<userName>
+	}
+2.	/suggest/place
+	{
+		q=<query>
+	}
+3.	/suggest/question
+	{
+		q=<query>
+	}
+4. 	/question/post
+	{
+		place_id:<place_id>,
+		question:<question>,
+		by:<user posting the question>,
+		tags:[<tags...>],
+		metaData:<metadata>
+	}
+5.	/answer/post
+	{
+		question_id:<questionId>,
+		answer:<answer text>,
+		by:<answerer user_Id>
+	}
+
+# When a user posts a question create a question and a charoom with the questionId as the roomId with the question asker as the room member
+
+# How will you ask users to answer question?
+# Users will always have a connection with the server and push the questions on that stream.
+
+

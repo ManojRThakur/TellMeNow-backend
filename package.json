@@ -1,0 +1,22 @@
+{
+  "name": "FBHack",
+  "version": "0.0.1",
+  "description": "FBHack",
+  "main": "app.js",
+  "scripts": {
+    "test": "FBTest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ManojRThakur/TellMeNow-backend.git"
+  },
+  "keywords": [
+    "FB"
+  ],
+  "author": "HouseBolter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ManojRThakur/TellMeNow-backend/issues"
+  },
+  "homepage": "https://github.com/ManojRThakur/TellMeNow-backend"
+}
