@@ -1,21 +1,27 @@
-<script src="http://tellmenow.herokuapp.com/socket.io/socket.io.js"> </script>
+<script src="http://127.0.0.1:3000/socket.io/socket.io.js"> </script>
 <script>
-  var socket = io.connect('http://tellmenow.herokuapp.com/');
+  var socket = io.connect('http://127.0.0.1:3000/');
   var token = {
 	token: "CAAUNgmcrga4BAAetnybt86KpXkC1Kuen5JHiVlNDfBPBE8Bq3VOPhChRTJW2NqoapPnf5ZBY72wZAe5uDcJlERCV6NlEnafzgMx7v9sIJcPDVPOZA1p7mHdABMOx34X7v4zfIys1j8kEvLgGwCDJZCGabdrlr0A0LLQBMZCGP8DIrFLzaSIEmiYrqrb1YuUzYlrrvXY2hfQZDZD"
   };
-  /*
+  
   var req = {
   	text: "What the Fuck? ",
 	user: "533fcde9092914dc09026302",
-	place: "533fcde9092914dc09026302",
+	place: "533fff27173fe1fa0f5e7c4d",
 	tags: ["533fcde9092914dc09026302","533fcde9092914dc09026302"]
-  }*/
+  }
 /*
   var ans = {
 		text: "FB Hack",
 		question: "533fd790d324dd250b3676ab",
 		user: "533fcde9092914dc09026302"
 	}*/
-  socket.emit('/user/login', token);
+  var loc = {
+      geoLocation : {
+        lat : 19,
+        lng : 73
+      }
+  }
+  socket.emit('/question/post', req);
 </script>

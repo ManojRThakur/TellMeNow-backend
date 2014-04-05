@@ -26,6 +26,7 @@ exports.updateGeoLocation = (data, callback) ->
 
 
 exports.addQuestions = (data, callback) ->
+	console.log data
 	schema.Place.findOneAndUpdate {_id: data._id}, {$push: {questions: data.questions}}, (err, pl) ->
 		return callback err if err?
 		return callback null, pl
@@ -42,6 +43,16 @@ exports.getLocation = (data, callback) ->
 		return callback err if err?
 		return callback null, pl
 
+exports.getPlacesByCoordinates = (data, callback) ->
+	console.log data
+	schema.Place.find geoLocation: $geoWithin : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 10/3959 ], (err, loc) ->
+		return callback err if err?
+		return callback null, loc
+	###
+	db.places.find( { loc: { $geoWithin :
+                          { $center : [ [-74, 40.74], 10 ] }
+                } } )
+	###
 
 exports.postLocationByFacebookId = (facebookId, data, callback) ->
 	facebookId = parseInt(facebookId)
@@ -50,6 +61,12 @@ exports.postLocationByFacebookId = (facebookId, data, callback) ->
 		return callback null, pl
 
 exports.getLocationByFacebookId = (facebookId, callback) ->
+	facebookId = parseInt(facebookId)
+	schema.Place.find {facebookId: facebookId} , (err, pl) ->
+		return callback err if err?
+		return callback null, pl
+
+exports.getLocationByName = (facebookId, callback) ->
 	facebookId = parseInt(facebookId)
 	schema.Place.find {facebookId: facebookId} , (err, pl) ->
 		return callback err if err?

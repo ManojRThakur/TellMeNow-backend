@@ -18,7 +18,8 @@ module.exports = {
 							done null, resp
 					,
 					(done) ->
-						locationsdb.addQuestion data.place_id, resp._id, (err, dataResp) ->
+						question = {_id: data.place, questions : resp._id}
+						locationsdb.addQuestions question, (err, dataResp) ->
 							console.log 'Entered 2'
 							if err? 
 								done err

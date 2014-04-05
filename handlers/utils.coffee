@@ -67,6 +67,7 @@ module.exports = {
 		dbLoc.users = []
 		dbLoc.questions = []
 		dbLoc.geoLocation = {"lng": loc.location.longitude , "lat": loc.location.latitude }
+		dbLoc.name = loc.name
 		done dbLoc
 	,
 	makeUser : (userInfo, done) ->
