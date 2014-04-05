@@ -18,10 +18,7 @@
 		user: "533fcde9092914dc09026302"
 	}*/
   var loc = {
-      geoLocation : {
-        lat : 19,
-        lng : 73
-      }
+      query: "reg"
   }
-  socket.emit('/question/post', req);
+  socket.emit('/location/query', loc);
 </script>

@@ -9,8 +9,6 @@ module.exports = {
 		io.sockets.on 'connection', (socket) ->
 			
 			socket.on '/user/login', (data,callback) ->
-				#token stuff
-				#get user acces token , get the userId , and if userId is present then dont do anything else add the new user
 				user.login data, socket, (err, resp) ->
 					callback
 						error : err
@@ -21,21 +19,22 @@ module.exports = {
 			socket.on '/suggest/question', (data) ->
 				#autocomplete place query
 			socket.on '/question/post', (data, callback) ->
-				# post question
 				qa.postQuestion data, socket, (err, resp) ->
 					callback
 						error : err
 						response: resp
+
 			socket.on '/location/find', (data, callback) ->
 				location.getSuggestedLocations data, (err, resp) ->
-					console.log err, resp
 					callback
 						error: err
 						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
-					#if err?
-						#utils.sendError socket, err
-					#else
-						#utils.sendSuccess socket, resp
+			
+			socket.on '/location/query', (data, callback) ->
+				location.getSuggestedLocationsByKeyword data, (err, resp) ->
+					callback
+						error: err
+						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
 
 			socket.on '/answer/post', (data, callback) ->
 				# post answer

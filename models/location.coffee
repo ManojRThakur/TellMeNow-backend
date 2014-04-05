@@ -66,11 +66,10 @@ exports.getLocationByFacebookId = (facebookId, callback) ->
 		return callback err if err?
 		return callback null, pl
 
-exports.getLocationByName = (facebookId, callback) ->
-	facebookId = parseInt(facebookId)
-	schema.Place.find {facebookId: facebookId} , (err, pl) ->
+exports.getLocationByKeyword = (keyword, callback) ->
+	schema.Place.find { name: { $regex: new RegExp keyword.query ,"i" } }, (err, resp) ->
 		return callback err if err?
-		return callback null, pl
+		return callback null, resp
 
 exports.upsertUserCheckin = (data, callback) ->
 	console.log data
