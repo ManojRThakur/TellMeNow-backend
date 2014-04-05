@@ -10,9 +10,10 @@ postQuestion = (data, socket, done) ->
 				done null, resp
 			##publish to potential answrers
 
-postAnswer = (data) ->
+postAnswer = (data, socket, done) ->
 	qdb.postAnswer data, (err, resp) ->	
 		if err
 			done err, null
 		else
 			subscription.sendAnswer resp, socket
+			done null, resp

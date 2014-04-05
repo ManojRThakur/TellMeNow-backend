@@ -37,4 +37,20 @@
 3) return response
 
 
+# Places from all posts
+
+1) /me/locations // posts to all the places 
+
+"place": {
+        "id": "333816313359586", 
+        "name": "Cross Campus", 
+        "location": {
+          "city": "Santa Monica", 
+          "country": "United States", 
+          "latitude": 34.018656040043, 
+          "longitude": -118.48898943976, 
+          "state": "CA", 
+          "street": "929 Colorado Ave", 
+          "zip": "90401"
+}
 

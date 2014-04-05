@@ -1,11 +1,12 @@
-qdb = require '../models/qa'
+user = require '../models/user'
 
-postQuestion = (data, done) ->
-	qdb.postQuestion data, (err, resp) ->	
-		if err
-			done err, null
-		else
-			
-
-postAnswer = (data) ->
-
+login = (data, socket, done) ->
+	user.byUserName data.userName , (err, resp) ->
+		if not resp
+			utils.getUserId data.token, (err, resp) ->
+				data.userId = resp.userId
+				data.token = resp.longToken
+				user.add data, (err, resp) ->
+				#get All checked In places and populate
+					utils.populateLocations data.token, (err, resp) ->
+						done err, resp
