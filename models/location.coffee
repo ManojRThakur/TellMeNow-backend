@@ -41,3 +41,9 @@ exports.getLocation = (data, callback) ->
 	schema.Place.findOne _id: data._id, (err, pl) ->
 		return callback err if err?
 		return callback null, pl
+
+
+exports.getLocationByFacebookId = (data, callback) ->
+	schema.Place.findOne facebookId: data.facebookId, (err, pl) ->
+		return callback err if err?
+		return callback null, pl
