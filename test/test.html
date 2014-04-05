@@ -29,7 +29,7 @@
   var loc = {
       query: "reg"
   }
-  socket.emit('/answer/post', ans, function(data){
+  socket.emit('/user/login', token, function(data){
     console.log(data);
   });
 </script>

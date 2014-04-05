@@ -14,12 +14,16 @@ module.exports = {
 				#subscribe , add in place table 
 				async.series [
 					(done) ->
-						locationsdb.getLocation resp._id, (err,res) ->
+						console.log resp
+						locationsdb.getLocation resp.place, (err,res) ->
 							if not err?
 								for user in res.users
 									mapping.getMapping user, (socket) ->
 										if socket?
 											socket.emit '/stream', resp
+								done err, resp 
+							else
+								done err
 						#subscription.subscribe resp._id, socket, () ->
 						#	console.log 'Entered 1'
 						#	done null, resp
@@ -31,13 +35,13 @@ module.exports = {
 							if err? 
 								done err
 							else
-								done dataResp
+								done null, dataResp
 				],
 				(err, results) ->
 					if err? and err.length > 0
 						return done err
 					else
-						return done results
+						return done null, results
 				##publish to potential answrers
 				## add question in place table 
 	,
@@ -46,7 +50,7 @@ module.exports = {
 			if err
 				done err, null
 			else
-				qdb.getQuestion resp._id, (err, res) ->
+				qdb.getQuestion resp.question, (err, res) ->
 					if not err?
 						mapping.getMapping res.user, (socket) ->
 							if socket?

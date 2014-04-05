@@ -44,7 +44,7 @@ exports.getLocation = (id, callback) ->
 
 exports.getPlacesByCoordinates = (data, callback) ->
 	console.log data
-	schema.Place.find geoLocation: $geoWithin : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 10/3959 ], (err, loc) ->
+	schema.Place.find geoLocation: $geoWithin : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 20/3959 ], (err, loc) ->
 		return callback err if err?
 		return callback null, loc
 	###

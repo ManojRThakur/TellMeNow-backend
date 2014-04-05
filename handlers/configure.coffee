@@ -25,6 +25,7 @@ module.exports = {
 			socket.on '/suggest/question', (data) ->
 				#autocomplete place query
 			socket.on '/question/post', (data, callback) ->
+				
 				if not data.user?
 					data.user = socket.userId
 				qa.postQuestion data, socket, (err, resp) ->
