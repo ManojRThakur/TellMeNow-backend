@@ -47,14 +47,19 @@ mongoose.connection.on 'connected',  ->
 		name: String
 
 
-	exports.Place = mongoose.model "Places", new mongoose.Schema
+	Places = new mongoose.Schema
 		facebookId: Number
 		name: String
-		geoLocation: 
-			type: [Number]
-			index: '2d'
+		geoLocation:
+			lng: Number
+			lat: Number
 		users: [type: mongoose.Schema.ObjectId, ref: "Users"]
 		questions: [type: mongoose.Schema.ObjectId, ref: "Questions"]
+
+	Places.index
+		geoLocation: '2d'
+
+	exports.Place = mongoose.model "Places", Places
 
 
 	exports.User = mongoose.model "Users", new mongoose.Schema
