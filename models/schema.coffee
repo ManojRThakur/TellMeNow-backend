@@ -48,8 +48,10 @@ exports.Place = mongoose.model "Places", new mongoose.Schema
 
 
 exports.User = mongoose.model "Users", new mongoose.Schema
+	facebookId: Number
+	token: String
 	name: String
-	reputaion: Number
+	reputation: Number
 	notificationsSet: Number
 
 
