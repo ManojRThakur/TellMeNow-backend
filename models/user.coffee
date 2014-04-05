@@ -33,3 +33,15 @@ exports.decUserReputation = (req, callback) ->
 	schema.User.findOneAndUpdate {_id: data._id}, {$dec : {notificationsSet : 1}}, (err, use) ->
 		return callback err if err?
 		return callback null, use
+
+
+exports.getUser = (data, callback) ->
+	schema.User.findOne _id: data._id, (err, use) ->
+		return callback err if err?
+		return callback null, use
+
+
+exports.getUserByFacebookId = (data, callback) ->
+	schema.User.findOne facebookId: data.facebookId, (err, use) ->
+		return callback err if err?
+		return callback null, use
