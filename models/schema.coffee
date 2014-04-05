@@ -24,7 +24,9 @@ exports.Answer = mongoose.model "Answers", new mongoose.Schema
 	timestamp:
 		type: Date
 		default: Date.now
-	votes: Number
+	votes: 
+		type: Number
+		default: 0
 	followUps: [
 		text: String
 		user: type: mongoose.Schema.ObjectId, ref: "Users"
@@ -51,8 +53,12 @@ exports.User = mongoose.model "Users", new mongoose.Schema
 	facebookId: Number
 	token: String
 	name: String
-	reputation: Number
-	notificationsSet: Number
+	reputation:
+		type: Number
+		default: 0
+	notificationsSet:
+		type: Number
+		default: 5
 
 
 exports.Notification = mongoose.model "Notifications", new mongoose.Schema
