@@ -2,6 +2,12 @@
   "name": "FBHack",
   "version": "0.0.1",
   "description": "FBHack",
+  "dependencies": {
+    "async": "latest",
+    "mongoose": "latest",
+    "express": "latest",
+    "coffee-script": "latest"
+  },
   "main": "app.js",
   "scripts": {
     "test": "FBTest"
