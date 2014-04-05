@@ -1,7 +1,7 @@
 mongoose = require 'mongoose'
 
-mongoose.connect "mongodb://localhost/test"
-
+mongoose.connect "mongodb://tellmenow:tellmenow@ds030607.mongolab.com:30607/tellmenow"
+#ds030607.mongolab.com:30607/tellmenow
 mongoose.connection.on 'error',  ->
 	throw "MongoDB connection error"
 
