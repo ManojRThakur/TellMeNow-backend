@@ -1,6 +1,12 @@
-subscribe = (qid, socket, done) ->
-	socket.join qid
-	do done
+module.exports = {
 
-publish = (data, socket) ->
-	socket.in(data.questionId).emit data
+	subscribe : (qid, socket, done) ->
+		socket.join qid
+		do done
+
+	publish : (data, socket) ->
+		socket.in(data.questionId).emit data
+
+	sendAnswer : (resp, socket) ->
+
+}
