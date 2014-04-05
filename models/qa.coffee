@@ -1,7 +1,6 @@
 schema = require './schema'
 
 exports.postQuestion = (data, callback) ->
-	console.log 'MANOJ ' + JSON.stringify data
 	question = new schema.Question
 		text: data.text
 		user: data.user

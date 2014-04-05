@@ -85,20 +85,21 @@ module.exports = {
 		FB.api '/me/locations', {} ,  (res) ->
 			if not res? or res.error?
 				return console.log 'Could not find any location'
-
 			if res.data? and res.data.length > 0	
 				for data in res.data
-					if res.data.place?
-						location.byId res.data.place.id, (err, loc) ->
-							if not loc? and not err?
-								makeLocation res.data.place, (dbLoc) ->
-									location.add dbLoc, (err, resp) ->
+					if data.place?
+						location.getLocationByFacebookId data.place.id, (err, loc) ->
+							console.log 'id : ' + data.place.id + 'Loc ' + loc
+							if not loc? or loc.length == 0
+								module.exports.makeLocation data.place, (dbLoc) ->
+									location.postLocation dbLoc, (err, resp) ->
 										if err? 
 											console.log err
 										else 
 											console.log 'Success for location : {#resp.facebookId}'  
-							else if loc? and not err?
-								location.addCheckedInUser userId, loc._id, (err, resp) ->
+							else if loc?
+								userIds = [userId]
+								location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
 									if err? 
 										console.log err
 									else 

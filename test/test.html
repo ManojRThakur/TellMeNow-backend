@@ -1,9 +1,9 @@
 <script src="http://localhost:3000/socket.io/socket.io.js"> </script>
 <script>
   var socket = io.connect('http://localhost:3000');
-  /*var token = {
-	token: "CAAUNgmcrga4BANvVZBo2Rh8aHHqxTzFe3w3N7VNZAKt5s1XUsvzlHY72vDK9woZAYzRmh9FjoM6QfYjkETHljFBbVeFFvO5kefxgTg0ycE2nJUnent1rgCb2zAJaUMi8Tz4aYD1PPYYvhOtQcXIBC6Nmq7vkJKLet0NpnMlvlUF7IkVsfk6gWA6ZCgjafVZBtcR0tT5ZCRRwZDZD"
-  };*/
+  var token = {
+	token: "CAAUNgmcrga4BANSD4ZC7YGwB6iZAd54d8W326MCozFUQKjnZCPEhYXkU9lYEZA7ewQyDfwor4f8DpIo5WworRReKpRJZCHql12n7PxktsCVRVxAEYJNEqDBITEWQ9AusZA3B9aNu2wgeTrPlZALZARpozZCcdCOIozhZC6mHUWYhnva1ShedYuby4BIITDh1GYpnSmWpMzC6ZCiOQZDZD"
+  };
   /*
   var req = {
   	text: "What the Fuck? ",
@@ -11,11 +11,11 @@
 	place: "533fcde9092914dc09026302",
 	tags: ["533fcde9092914dc09026302","533fcde9092914dc09026302"]
   }*/
-
+/*
   var ans = {
 		text: "FB Hack",
 		question: "533fd790d324dd250b3676ab",
 		user: "533fcde9092914dc09026302"
-	}
-  socket.emit('/answer/post', ans);
+	}*/
+  socket.emit('/user/login', token);
 </script>
