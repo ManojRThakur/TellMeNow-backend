@@ -11,14 +11,17 @@
 	place: "533fff27173fe1fa0f5e7c4d",
 	tags: ["533fcde9092914dc09026302","533fcde9092914dc09026302"]
   }
-/*
+
   var ans = {
-		text: "FB Hack",
-		question: "533fd790d324dd250b3676ab",
-		user: "533fcde9092914dc09026302"
-	}*/
+		text: "FB Hack 123",
+		question: "534023be57a3bd07143ffe27",
+		user: "534031136278fbef14d72569"
+	}
+
   var loc = {
       query: "reg"
   }
-  socket.emit('/location/query', loc);
+  socket.emit('/answer/post', ans, function(data){
+    console.log(data);
+  });
 </script>
