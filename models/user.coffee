@@ -18,6 +18,13 @@ exports.updateUserNotification = (req, callback) ->
 		return callback null, use
 
 
+exports.updateUserToken = (req, callback) ->
+	data = JSON.parse req
+	schema.User.findOneAndUpdate {_id: data._id}, token: data.token, (err, use) ->
+		return callback err if err?
+		return callback null, use
+
+
 exports.incUserReputation = (req, callback) ->
 	data = JSON.parse req
 	schema.User.findOneAndUpdate {_id: data._id}, {$inc : {notificationsSet : 1}}, (err, use) ->

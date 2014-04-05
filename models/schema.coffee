@@ -1,5 +1,7 @@
 mongoose = require 'mongoose'
 
+mongoose.connect "mongodb://localhost/test"
+
 exports.Question = mongoose.model "Questions", new mongoose.Schema
 	text: String
 	user: type: mongoose.Schema.ObjectId, ref: "Users"
