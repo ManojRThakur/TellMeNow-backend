@@ -3,3 +3,10 @@ User login test
 {
 	token:
 }
+
+{
+	text: "What the Fuck? ",
+	user: "533fcde9092914dc09026302",
+	place: "533fcde9092914dc09026302",
+	tags: ["Tests1","Test2"]
+}

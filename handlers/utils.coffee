@@ -1,4 +1,4 @@
-location = require('../models/locations');
+location = require('../models/location');
 appid = '1422228611367342'
 appsecret = '29792a86bc83aa86127eec74e868bbb3'
 
