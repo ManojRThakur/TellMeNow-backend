@@ -1,7 +1,6 @@
 schema = require './schema'
 
-exports.postQuestion = (req, callback) ->
-	data = JSON.parse req
+exports.postQuestion = (data, callback) ->
 	question = new schema.Question
 		text: data.text
 		user: data.user
@@ -12,22 +11,19 @@ exports.postQuestion = (req, callback) ->
 		return callback null, ques
 
 
-exports.postComment = (req, callback) ->
-	data = JSON.parse req
+exports.postComment = (data, callback) ->
 	schema.Question.findOneAndUpdate {_id: data._id}, {$push: {"comments": {text: data.comments.text, user: data.comments.user}}}, (err, ques) ->
 		return callback err if err?
 		return callback null, ques
 
 
-exports.getQuestion = (req, callback) ->
-	data = JSON.parse req
+exports.getQuestion = (data, callback) ->
 	schema.Question.findOne _id: data._id, (err, ques) -> 
 		return callback err if err?
 		return callback null, ques
 
 
-exports.postAnswer = (req, callback) ->
-	data = JSON.parse req
+exports.postAnswer = (data, callback) ->
 	answer = new schema.Answer
 		text: data.text
 		question: data.question
@@ -37,29 +33,25 @@ exports.postAnswer = (req, callback) ->
 		return callback null, ans
 
 
-exports.postFollowUp = (req, callback) ->
-	data = JSON.parse req
+exports.postFollowUp = (data, callback) ->
 	schema.Answer.findOneAndUpdate {_id: data._id}, {$push: {"followUps": {text: data.comments.text, user: data.comments.user}}}, (err, ans) ->
 		return callback err if err?
 		return callback null, ans
 
 
-exports.incAnswerVotes = (req, callback) ->
-	data = JSON.parse req
+exports.incAnswerVotes = (data, callback) ->
 	schema.Answer.findOneAndUpdate {_id: data._id}, {$inc : {votes : 1}}, (err, ans) ->
 		return callback err if err?
 		return callback null, ans
 
 
-exports.decAnswerVotes = (req, callback) ->
-	data = JSON.parse req
+exports.decAnswerVotes = (data, callback) ->
 	schema.Answer.findOneAndUpdate {_id: data._id}, {$dec : {votes : 1}}, (err, ans) ->
 		return callback err if err?
 		return callback null, ans
 
 
-exports.getAnswer = (req, callback) ->
-	data = JSON.parse req
+exports.getAnswer = (data, callback) ->
 	schema.Answer.findOne _id: data._id, (err, ans) -> 
 		return callback err if err?
 		return callback null, ans
