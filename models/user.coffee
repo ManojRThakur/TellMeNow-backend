@@ -1,7 +1,7 @@
 schema = require './schema'
 
-exports.postUserInfo = (req, callback) ->
-	data = JSON.parse req
+exports.postUserInfo = (data, callback) ->
+	console.log data
 	user = new schema.User
 		facebookId: data.facebookId
 		token: data.token

@@ -3,11 +3,10 @@ utils = require './utils'
 
 module.exports = {
 	login : (data, socket, done) ->	
-		console.log data	
 		utils.getUserId data.token, (err, resp) ->
 			if not err?
 				data.userId = resp.userId
-				data.token = resp.longToken
+				data.token = resp.token
 				data.userName = resp.userName
 				utils.makeUser data , (dbUser) ->
 					user.postUserInfo dbUser, (err, resp) ->
