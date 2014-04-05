@@ -45,13 +45,16 @@ module.exports = {
 		FB = require('fb')
 		FB.setAccessToken(token)
 		res = {}
-		FB.api '/me', (res) ->
+		FB.api '/me', (resp) ->
 			if not res? or res.error?
 		   		console.log 'Could not find user Facebook Id'
 		   		return done new Error 'UserId not found'
-		   	res.userId = res.id
+		   	res.userId = resp.id
+		   	res.userName = resp.username
 		   	#https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=<APP_ID>&client_secret=<APP_SECRET>&fb_exchange_token=<SHORT_LIVED_TOKEN>
-		   	FB.api 'oauth/access_token', { grant_type : fb_exchange_token, client_id : appid, client_secret: appsecret,  fb_exchange_token: token }, (res) -> 
+		   	test = { grant_type : "fb_exchange_token", client_id : appid, client_secret: appsecret,  fb_exchange_token: token }
+		   	FB.api 'oauth/access_token', { grant_type : "fb_exchange_token", client_id : appid, client_secret: appsecret,  fb_exchange_token: token }, (res) -> 
+		   		console.log res
 		   		if not res? or res.error?
 		   			console.log 'Could not find user long lived token'
 		   			return done new Error 'Could not find long lived token'
