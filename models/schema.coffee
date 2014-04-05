@@ -59,8 +59,3 @@ Notifications = mongoose.model "Notifications", new mongoose.Schema
 	timestamp:
 		type: Date
 		default: Date.now
-
-
-
-
-
