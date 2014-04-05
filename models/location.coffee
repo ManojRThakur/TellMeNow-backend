@@ -43,6 +43,12 @@ exports.getLocation = (data, callback) ->
 		return callback null, pl
 
 
+exports.postLocationByFacebookId = (facebookId, data, callback) ->
+	facebookId = parseInt(facebookId)
+	schema.Place.findOneAndUpdate {facebookId: facebookId}, data, (err, pl) ->
+		return callback err if err?
+		return callback null, pl
+
 exports.getLocationByFacebookId = (facebookId, callback) ->
 	facebookId = parseInt(facebookId)
 	schema.Place.find {facebookId: facebookId} , (err, pl) ->

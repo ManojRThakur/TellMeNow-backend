@@ -63,10 +63,10 @@ module.exports = {
 	,
 	makeLocation : (loc, done) ->
 		dbLoc = {}
-		dbLoc.facebookId = loc.id
+		dbLoc.facebookId = parseInt loc.id
 		dbLoc.users = []
 		dbLoc.questions = []
-		dbLoc.geoLocation = {longitude : loc.longitude , latitude : loc.latitude }
+		dbLoc.geoLocation = {"lng": loc.location.longitude , "lat": loc.location.latitude }
 		done dbLoc
 	,
 	makeUser : (userInfo, done) ->
@@ -88,22 +88,23 @@ module.exports = {
 			if res.data? and res.data.length > 0	
 				for data in res.data
 					if data.place?
-						location.getLocationByFacebookId data.place.id, (err, loc) ->
-							console.log 'id : ' + data.place.id + 'Loc ' + loc
-							if not loc? or loc.length == 0
-								module.exports.makeLocation data.place, (dbLoc) ->
-									location.postLocation dbLoc, (err, resp) ->
-										if err? 
-											console.log err
-										else 
-											console.log 'Success for location : {#resp.facebookId}'  
-							else if loc?
-								userIds = [userId]
-								location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
-									if err? 
-										console.log err
-									else 
-										console.log 'Success for adding checked in user : {#userId}'  	    						
+						module.exports.makeLocation data.place, (dbLoc) ->
+							location.postLocationByFacebookId dbLoc.facebookId, dbLoc, (err, loc) ->									
+								if err? 
+									console.log err
+								else 
+									if not loc?
+										location.postLocation dbLoc, (err, loc) ->
+											if err? 
+												console.log err
+										console.log 'Success for location : {#resp.facebookId}'  
+							#else if loc?
+							#	userIds = [userId]
+							#	location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
+							#		if err? 
+							#			console.log err
+							#		else 
+							#			console.log 'Success for adding checked in user : {#userId}'  	    						
 }
 					
  
