@@ -5,12 +5,12 @@ utils = require 'utils'
 configure = (io , done) ->
 	io.sockets.on 'connection', (socket) ->
   		
-  		socket.on '/user/token', (data) ->
+  		socket.on '/user/login', (data) ->
     		#token stuff
         #get user acces token , get the userId , and if userId is present then dont do anything else add the new user
         user.login data, socket, (err, resp) ->
-          
-    	socket.on '/suggest/place', (data) ->
+      
+      socket.on '/suggest/place', (data) ->
     		#autocomplete place query
     	socket.on '/suggest/question', (data) ->
     		#autocomplete place query
