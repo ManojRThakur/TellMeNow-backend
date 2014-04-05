@@ -1,6 +1,6 @@
 mongoose = require 'mongoose'
 
-Questions = mongoose.model "Questions", new mongoose.Schema
+exports.Question = mongoose.model "Questions", new mongoose.Schema
 	text: String
 	user: type: mongoose.Schema.ObjectId, ref: "Users"
 	timestamp:
@@ -17,7 +17,7 @@ Questions = mongoose.model "Questions", new mongoose.Schema
 	]
 
 
-Answers = mongoose.model "Answers", new mongoose.Schema
+exports.Answer = mongoose.model "Answers", new mongoose.Schema
 	text: String
 	question: type: mongoose.Schema.ObjectId, ref: "Questions"
 	user: type: mongoose.Schema.ObjectId, ref: "Users"
@@ -34,11 +34,11 @@ Answers = mongoose.model "Answers", new mongoose.Schema
 	]
 
 
-Tags = mongoose.model "Tags", new mongoose.Schema
+exports.Tag = mongoose.model "Tags", new mongoose.Schema
 	name: String
 
 
-Places = mongoose.model "Places", new mongoose.Schema
+exports.Place = mongoose.model "Places", new mongoose.Schema
 	facebookId: Number
 	geoLocation: 
 		type: [Number]
@@ -47,13 +47,13 @@ Places = mongoose.model "Places", new mongoose.Schema
 	questions: [type: mongoose.Schema.ObjectId, ref: "Questions"]
 
 
-Users = mongoose.model "Users", new mongoose.Schema
+exports.User = mongoose.model "Users", new mongoose.Schema
 	name: String
 	reputaion: Number
 	notificationsSet: Number
 
 
-Notifications = mongoose.model "Notifications", new mongoose.Schema
+exports.Notification = mongoose.model "Notifications", new mongoose.Schema
 	user: type: mongoose.Schema.ObjectId, ref: "Users"
 	question: type: mongoose.Schema.ObjectId, ref: "Questions"
 	timestamp:
