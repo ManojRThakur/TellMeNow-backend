@@ -6,7 +6,9 @@
     "async": "latest",
     "mongoose": "latest",
     "express": "latest",
-    "coffee-script": "latest"
+    "coffee-script": "latest",
+    "socket.io": "latest",
+    "fb": "latest"
   },
   "main": "app.js",
   "scripts": {
