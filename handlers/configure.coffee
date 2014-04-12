@@ -3,6 +3,7 @@ qa = require './qa'
 utils = require './utils'
 location = require './locations'
 mapping = require './mapping'
+commentfollowup = require './commentsfollowups'
 
 module.exports = {
 

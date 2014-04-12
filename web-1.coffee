@@ -6,7 +6,7 @@ handler = require('./handlers/configure')
 
 io.set('log level', 1); 
 
-server.listen(3001)
+server.listen(3000)
 
 handler.configure io, (err) -> 
 	if err 
