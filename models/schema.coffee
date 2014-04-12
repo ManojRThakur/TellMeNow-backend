@@ -1,7 +1,5 @@
 mongoose = require 'mongoose'
 
-#mongoose.connect "mongodb://tellmenow:tellmenow@ds030607.mongolab.com:30607/tellmenow"
-#ds030607.mongolab.com:30607/tellmenow
 mongoose.connect "mongodb://localhost:27017/test"
 mongoose.connection.on 'error',  ->
 	throw "MongoDB connection error"
@@ -16,13 +14,15 @@ mongoose.connection.on 'connected',  ->
 			default: Date.now
 		place: type: mongoose.Schema.ObjectId, ref: "Places"
 		tags: [type: mongoose.Schema.ObjectId, ref: "Tags"]
-		comments: [
-			text: String
-			user: type: mongoose.Schema.ObjectId, ref: "Users"
-			timestamp:
-				type: Date
-				default: Date.now
-		]
+
+
+	exports.QuestionComment = mongoose.model "QuestionsComments", new mongoose.Schema
+		text: String
+		user: type: mongoose.Schema.ObjectId, ref: "Users"
+		timestamp:
+			type: Date
+			default: Date.now
+		question: type: mongoose.Schema.ObjectId, ref: "Questions"
 
 
 	exports.Answer = mongoose.model "Answers", new mongoose.Schema
@@ -35,13 +35,15 @@ mongoose.connection.on 'connected',  ->
 		votes: 
 			type: Number
 			default: 0
-		followUps: [
-			text: String
-			user: type: mongoose.Schema.ObjectId, ref: "Users"
-			timestamp:
-				type: Date
-				default: Date.now
-		]
+
+
+	exports.AnswerFollowUp = mongoose.model "AnswersFollowUps", new mongoose.Schema
+		text: String
+		user: type: mongoose.Schema.ObjectId, ref: "Users"
+		timestamp:
+			type: Date
+			default: Date.now
+		answer: type: mongoose.Schema.ObjectId, ref: "Answers"
 
 
 	exports.Tag = mongoose.model "Tags", new mongoose.Schema
