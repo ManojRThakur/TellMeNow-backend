@@ -79,7 +79,17 @@ module.exports = {
 		dbUser.reputation = 0
 		done dbUser
 	,
-
+	addSubscription : (socket, type, id, done) ->
+		if socket.subscription is undefined
+			socket.subscription = {}
+			socket.subscription[type] = []
+		else if socket.subscription isnt undefined and socket.subscription[type] is undefined
+			socket.subscription[type] = []
+		if (socket.subscription[type].indexOf id) is -1
+			socket.subscription[type].push id
+		console.log socket.subscription
+		do done
+	,
 	populateLocations : (userId, token) -> ## Add pagination
 		FB = require 'fb' 
 		FB.setAccessToken(token)

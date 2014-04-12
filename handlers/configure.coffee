@@ -19,22 +19,25 @@ module.exports = {
 					callback
 						error : err
 						response: resp
+			#add subscription here
 			socket.on '/user/find', (data, callback) ->
 				user.find data.id, (err, resp) ->
-					console.log typeof resp
 					response = {}
 					response._id = resp._id;
 					response.name = resp.name;
 					response.reputation = resp.reputation;
 					response.notificationsSet = resp.notificationsSet;
-					callback
-						error: err
-						response: response
+					utils.addSubscription socket, 'users', data.id, () ->
+						callback
+							error: err
+							response: response
+			#add subscription here
 			socket.on '/questions/get', (data, callback) ->
 				qa.getQuestions data.id, (err, data) ->
-					callback
-						error : err
-						response : data
+					utils.addSubscription socket, 'questions', data.id, () ->
+						callback
+							error : err
+							response : data
 			socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/suggest/question', (data) ->
@@ -56,15 +59,16 @@ module.exports = {
 					callback
 						error: err
 						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
-			socket.on '/location/findById', (data, callback) ->
+			#add subscription here
+			socket.on '/location/get', (data, callback) ->
 				location.getLocationById data.id, (err, resp) ->
-					callback
-						error: err
-						response: resp.map (x) -> _id: x._id.toString("utf-8"), name: x.name
+					utils.addSubscription socket, 'locations', data.id, () ->
+						callback
+							error: err
+							response: { "_id": resp._id.toString("utf-8"), name: resp.name}
 			socket.on '/answer/post', (data, callback) ->
 				if not data.user?
 					data.user = socket.userId
-				# post answer
 				qa.postAnswer data, socket, (err, resp) ->
 					callback
 						error : err

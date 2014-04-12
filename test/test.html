@@ -11,7 +11,9 @@
     })*/
     var req = {"id":"534944df3a46db9418ada800"};
     socket.emit('/user/find', req , function(data) {
-      alert(JSON.stringify(data));
+      socket.emit('/location/get', {"id":"534949ac5a136eae1881158f"} , function(data) {
+        alert(JSON.stringify(data));
+      });
     });
   });
   //var token = {
