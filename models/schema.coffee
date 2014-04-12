@@ -59,7 +59,7 @@ mongoose.connection.on 'connected',  ->
 		questions: [type: mongoose.Schema.ObjectId, ref: "Questions"]
 
 	Places.index
-		geoLocation: '2d'
+		geoLocation: '2dsphere'
 
 	exports.Place = mongoose.model "Places", Places
 

@@ -4,6 +4,7 @@ module.exports =
 	getSuggestedLocations : (data, done) ->
 		console.log data
 		location.getPlacesByCoordinates data, (err, data) ->
+			console.log err + ' ' + data 
 			if err?
 				return done err
 			else

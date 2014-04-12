@@ -47,11 +47,9 @@ exports.getPlacesByCoordinates = (data, callback) ->
 	schema.Place.find geoLocation: $geoWithin : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 20/3959 ], (err, loc) ->
 		return callback err if err?
 		return callback null, loc
-	###
-	db.places.find( { loc: { $geoWithin :
-                          { $center : [ [-74, 40.74], 10 ] }
-                } } )
-	###
+	#schema.Place.find geoLocation: $near: $geometry: {type: "Point", coordinates : [ data.geoLocation.lng , data.geoLocation.lat ]}, $maxDistance : 20/3959, (err, loc) ->
+	#	return callback err if err?
+	#	return callback null, loc
 
 exports.postLocationByFacebookId = (facebookId, data, callback) ->
 	facebookId = parseInt(facebookId)

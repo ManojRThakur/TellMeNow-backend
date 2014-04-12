@@ -47,7 +47,7 @@ module.exports = {
 		res = {}
 		FB.api '/me', (resp) ->
 			if not res? or res.error?
-				console.log 'Could not find user Facebook Id'
+				console.log 'Could not find user Facebook Id ' + res.error
 				return done new Error 'UserId not found'
 			res.userId = resp.id
 			res.userName = resp.username
@@ -55,7 +55,7 @@ module.exports = {
 			test = { grant_type : "fb_exchange_token", client_id : appid, client_secret: appsecret,  fb_exchange_token: token }
 			FB.api 'oauth/access_token', { grant_type : "fb_exchange_token", client_id : appid, client_secret: appsecret,  fb_exchange_token: token }, (resp) -> 
 				if not resp? or resp.error?
-					console.log 'Could not find user long lived token'
+					console.log 'Could not find user long lived token ' + JSON.stringify resp.error
 					return done new Error 'Could not find long lived token'
 
 				res.token = resp.access_token #TEST TODO
@@ -83,6 +83,7 @@ module.exports = {
 	populateLocations : (userId, token) -> ## Add pagination
 		FB = require 'fb' 
 		FB.setAccessToken(token)
+
 		FB.api '/me/locations', {} ,  (res) ->
 			if not res? or res.error?
 				return console.log 'Could not find any location'

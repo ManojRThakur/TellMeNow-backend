@@ -1,15 +1,16 @@
 <html>
 	<head>
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
 			var socket = io.connect('http://localhost:3000');
 
 			function send_request () {
-				var path = document.getElementById('path');
-				var data = document.getElementById('req_data');
-				socket.emit(path, data, function(resp){
-
+				var path = document.getElementById('path').value;
+				var data = document.getElementById('req_data').value;
+				alert(path +' ' + data);
+				socket.emit(path, JSON.parse(data), function(resp){
+					document.getElementById('res_data').innerHTML = JSON.stringify(resp);
 				});
 
 				
@@ -20,7 +21,7 @@
 		<br><br>
 		Path: &nbsp;&nbsp;&nbsp;<input type="text" name="path" id="path" size="100"><br>
 		Request : &nbsp;&nbsp;&nbsp;<textarea rows="20" cols="100" id="req_data" name="req_data" ></textarea><br>
-		Request : &nbsp;&nbsp;&nbsp;<textarea rows="20" cols="100" id="req_data" name="req_data" ></textarea><br>
+		Request : &nbsp;&nbsp;&nbsp;<textarea rows="20" cols="100" id="res_data" name="res_data" ></textarea><br>
 		<input type="submit" onClick="send_request();">
 	</body>
 </html>
