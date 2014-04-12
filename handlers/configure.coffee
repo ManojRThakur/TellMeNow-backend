@@ -73,6 +73,26 @@ module.exports = {
 					callback
 						error : err
 						response: resp
+			socket.on '/comments/get', (data, callback) ->
+				commentfollowup.getComments data, (err, resp) ->
+					callback
+						error : err
+						response: resp
+			socket.on '/followups/get', (data, callback) ->
+				commentfollowup.getFollowUps data, (err, resp) ->
+					callback
+						error : err
+						response: resp
+			socket.on '/comments/post', (data, callback) ->
+				commentfollowup.postComments data, (err, resp) ->
+					callback
+						error : err
+						response: resp
+			socket.on '/followups/post', (data, callback) ->
+				commentfollowup.postFollowUps data, (err, resp) ->
+					callback
+						error : err
+						response: resp
 }
 		
 
