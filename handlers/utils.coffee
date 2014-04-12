@@ -96,6 +96,7 @@ module.exports = {
 									console.log err
 								else 
 									if not loc?
+							
 										location.postLocation dbLoc, (err, loc) ->
 											if err? 
 												console.log err

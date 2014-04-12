@@ -2,21 +2,26 @@
 <script>
   var socket = io.connect('http://127.0.0.1:3000/');
   socket.on('connect', function() {
-    var token = {
+
+   /* var token = {
     token: "CAAUNgmcrga4BAMNKhmw20VtYB0gbNwjJtth5OhKVVx0O1enjfauBgfi6pq69YsXAwQqfckjnrKWL98gFVy1SdzajN9FtwKkbf5WSYZBqH0oyRHG7doVnZBnLfGSOGAjl83zCSvMtF6hurpZALe5GuNfg78ZCwN3vDyUZBu6lxrwmbrPdJPcR7ZAFb9PGigPFCxulJJxRpsqwZDZD"
     };
     socket.emit('/user/login', token, function(data) {
       console.log(JSON.signify.data);
-    })
+    })*/
+    var req = {"id":"534023be57a3bd07143ffe27"};
+    socket.emit('/question/get1', req , function(data) {
+      alert(JSON.stringify(data));
+    });
   });
   //var token = {
 	//token: "CAAUNgmcrga4BAMNKhmw20VtYB0gbNwjJtth5OhKVVx0O1enjfauBgfi6pq69YsXAwQqfckjnrKWL98gFVy1SdzajN9FtwKkbf5WSYZBqH0oyRHG7doVnZBnLfGSOGAjl83zCSvMtF6hurpZALe5GuNfg78ZCwN3vDyUZBu6lxrwmbrPdJPcR7ZAFb9PGigPFCxulJJxRpsqwZDZD"
   //};
-  
+  /*
   var req = {
   	text: "What the Fuck? ",
 	user: "533fcde9092914dc09026302",
-	place: "533fff27173fe1fa0f5e7c4d",
+	place: "534949ac5a136eae1881158f",
 	tags: ["533fcde9092914dc09026302","533fcde9092914dc09026302"]
   }
 
@@ -28,8 +33,8 @@
 
   var loc = {
       query: "reg"
-  }
-  socket.emit('/user/login', token, function(data){
-    console.log(data);
-  });
+  }*/
+  //socket.emit('/questions/get', { "id":"534023be57a3bd07143ffe27" }, function(data){
+   // alert(data);
+  //});
 </script>

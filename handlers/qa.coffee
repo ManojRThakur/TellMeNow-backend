@@ -46,11 +46,21 @@ module.exports = {
 				## add question in place table 
 	,
 	getQuestions: (id, done) ->
-		qdb.getQuestionForUser id, (err, resp) ->
+		qdb.getQuestion id, (err, resp) ->
+			resp = resp.toJSON()
 			if err
 				return done err
 			else
-				return done null, resp
+				qdb.getAnswersByQuestionId id, (err, qresp) ->
+					if err
+						return done err
+					else			
+						answers = []
+						for answer in qresp
+							answers.push answer._id
+						resp.answers = answers
+						console.log resp
+						return done null, resp
 	,
 	postAnswer : (data, socket, done) ->
 		qdb.postAnswer data, (err, resp) ->	

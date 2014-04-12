@@ -52,9 +52,7 @@ mongoose.connection.on 'connected',  ->
 		facebookId: 
 			type: Number
 		name: String
-		geoLocation:
-			lng: Number
-			lat: Number
+		geoLocation: []
 		users: [type: mongoose.Schema.ObjectId, ref: "Users"]
 		questions: [type: mongoose.Schema.ObjectId, ref: "Questions"]
 
@@ -63,7 +61,7 @@ mongoose.connection.on 'connected',  ->
 
 	exports.Place = mongoose.model "Places", Places
 
-
+	
 	exports.User = mongoose.model "Users", new mongoose.Schema
 		facebookId: Number
 		token: String

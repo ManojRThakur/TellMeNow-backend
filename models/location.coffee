@@ -4,9 +4,7 @@ exports.postLocation = (data, callback) ->
 	place = new schema.Place
 		facebookId: data.facebookId
 		name: data.name
-		geoLocation:
-			lng: data.geoLocation.lng
-			lat: data.geoLocation.lat
+		geoLocation: [ data.geoLocation.lng, data.geoLocation.lat]
 		users: data.users
 	place.save (err, pl) ->
 		return callback err if err?
@@ -20,7 +18,7 @@ exports.updateName = (data, callback) ->
 
 
 exports.updateGeoLocation = (data, callback) ->
-	schema.Place.findOneAndUpdate {_id: data._id}, {geoLocation: {lng: data.geoLocation.lng, lat: data.geoLocation.lat}}, (err, pl) ->
+	schema.Place.findOneAndUpdate {_id: data._id}, {geoLocation: [data.geoLocation.lng, data.geoLocation.lat]}, (err, pl) ->
 		return callback err if err?
 		return callback null, pl
 
@@ -44,7 +42,8 @@ exports.getLocation = (id, callback) ->
 
 exports.getPlacesByCoordinates = (data, callback) ->
 	console.log data
-	schema.Place.find geoLocation: $geoWithin : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 20/3959 ], (err, loc) ->
+	#schema.Place.find geoLocation: $near : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 20/3959 ], (err, loc) ->
+	schema.Place.find geoLocation: $near : $geometry: { type:"Point", coordinates:[data.geoLocation.lng, data.geoLocation.lat] }, $maxDistance:20000, (err, loc) ->
 		return callback err if err?
 		return callback null, loc
 	#schema.Place.find geoLocation: $near: $geometry: {type: "Point", coordinates : [ data.geoLocation.lng , data.geoLocation.lat ]}, $maxDistance : 20/3959, (err, loc) ->

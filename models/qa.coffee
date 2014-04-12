@@ -18,6 +18,7 @@ exports.postComment = (data, callback) ->
 
 
 exports.getQuestion = (id, callback) ->
+	console.log id
 	schema.Question.findOne _id: id, (err, ques) -> 
 		return callback err if err?
 		return callback null, ques
@@ -56,6 +57,10 @@ exports.decAnswerVotes = (data, callback) ->
 		return callback err if err?
 		return callback null, ans
 
+exports.getAnswersByQuestionId = (id, callback) ->
+	schema.Answer.find question: id, (err, ans) -> 
+		return callback err if err?
+		return callback null, ans
 
 exports.getAnswer = (data, callback) ->
 	schema.Answer.findOne _id: data._id, (err, ans) -> 

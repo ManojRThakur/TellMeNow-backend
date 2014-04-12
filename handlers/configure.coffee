@@ -19,11 +19,13 @@ module.exports = {
 					callback
 						error : err
 						response: resp
-		  	socket.on '/questions/get', (data, callback) ->
-		  		qa.getQuestions data.id, (err, data) ->
-		  			callback
-		  				error : err
-		  				response : data
+
+			socket.on '/questions/get', (data, callback) ->
+				qa.getQuestions data.id, (err, data) ->
+					console.log data
+					callback
+						error : err
+						response : data
 
 			socket.on '/suggest/place', (data) ->
 				#autocomplete place query
