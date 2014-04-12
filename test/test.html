@@ -9,8 +9,8 @@
     socket.emit('/user/login', token, function(data) {
       console.log(JSON.signify.data);
     })*/
-    var req = {"id":"534023be57a3bd07143ffe27"};
-    socket.emit('/question/get1', req , function(data) {
+    var req = {"id":"534944df3a46db9418ada800"};
+    socket.emit('/user/find', req , function(data) {
       alert(JSON.stringify(data));
     });
   });

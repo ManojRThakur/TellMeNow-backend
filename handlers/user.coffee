@@ -3,7 +3,6 @@ utils = require './utils'
 
 module.exports = {
 	login : (data, done) ->	
-		console.log data.token
 		utils.getUserId data.token, (err, resp) ->
 			if not err?
 				data.userId = resp.userId
@@ -20,6 +19,13 @@ module.exports = {
 						else
 							utils.populateLocations res._id, data.token
 							return done null, res
+			else
+				return done err
+
+	find : (id, done) ->
+		user.find id, (err, resp) ->
+			if not err?
+				return done null, resp
 			else
 				return done err
 }

@@ -16,3 +16,10 @@ module.exports =
 				return done err
 			else
 				return done null, data
+
+	getLocationById : (id, done) ->
+		location.getLocationById id, (err, data) ->
+			if err?
+				return done err
+			else
+				return done null, data

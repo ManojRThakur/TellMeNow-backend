@@ -35,7 +35,7 @@ exports.addUsers = (data, callback) ->
 		return callback null, pl
 
 
-exports.getLocation = (id, callback) ->
+exports.getLocationById = (id, callback) ->
 	schema.Place.findOne _id: id, (err, pl) ->
 		return callback err if err?
 		return callback null, pl

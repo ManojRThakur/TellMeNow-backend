@@ -19,39 +19,48 @@ module.exports = {
 					callback
 						error : err
 						response: resp
-
+			socket.on '/user/find', (data, callback) ->
+				user.find data.id, (err, resp) ->
+					console.log typeof resp
+					response = {}
+					response._id = resp._id;
+					response.name = resp.name;
+					response.reputation = resp.reputation;
+					response.notificationsSet = resp.notificationsSet;
+					callback
+						error: err
+						response: response
 			socket.on '/questions/get', (data, callback) ->
 				qa.getQuestions data.id, (err, data) ->
-					console.log data
 					callback
 						error : err
 						response : data
-
 			socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/suggest/question', (data) ->
 				#autocomplete place query
 			socket.on '/question/post', (data, callback) ->
-
 				if not data.user?
 					data.user = socket.userId
 				qa.postQuestion data, socket, (err, resp) ->
 					callback
 						error : err
 						response: resp
-
 			socket.on '/location/find', (data, callback) ->
 				location.getSuggestedLocations data, (err, resp) ->
 					callback
 						error: err
 						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
-			
 			socket.on '/location/query', (data, callback) ->
 				location.getSuggestedLocationsByKeyword data, (err, resp) ->
 					callback
 						error: err
 						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
-
+			socket.on '/location/findById', (data, callback) ->
+				location.getLocationById data.id, (err, resp) ->
+					callback
+						error: err
+						response: resp.map (x) -> _id: x._id.toString("utf-8"), name: x.name
 			socket.on '/answer/post', (data, callback) ->
 				if not data.user?
 					data.user = socket.userId

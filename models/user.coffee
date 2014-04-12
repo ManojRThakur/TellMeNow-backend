@@ -45,6 +45,10 @@ exports.getUser = (data, callback) ->
 		return callback err if err?
 		return callback null, use
 
+exports.find = (id, callback) ->
+	schema.User.findOne _id: id, (err, use) ->
+		return callback err if err?
+		return callback null, use.toJSON()
 
 exports.getUserByFacebookId = (data, callback) ->
 	schema.User.findOne facebookId: data.facebookId, (err, use) ->
