@@ -19,13 +19,18 @@ module.exports = {
 					callback
 						error : err
 						response: resp
-		  
+		  	socket.on '/questions/get', (data, callback) ->
+		  		qa.getQuestions data.id, (err, data) ->
+		  			callback
+		  				error : err
+		  				response : data
+
 			socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/suggest/question', (data) ->
 				#autocomplete place query
 			socket.on '/question/post', (data, callback) ->
-				
+
 				if not data.user?
 					data.user = socket.userId
 				qa.postQuestion data, socket, (err, resp) ->

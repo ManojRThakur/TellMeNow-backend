@@ -45,6 +45,13 @@ module.exports = {
 				##publish to potential answrers
 				## add question in place table 
 	,
+	getQuestions: (id, done) ->
+		qdb.getQuestionForUser id, (err, resp) ->
+			if err
+				return done err
+			else
+				return done null, resp
+	,
 	postAnswer : (data, socket, done) ->
 		qdb.postAnswer data, (err, resp) ->	
 			if err

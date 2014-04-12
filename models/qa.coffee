@@ -22,6 +22,12 @@ exports.getQuestion = (id, callback) ->
 		return callback err if err?
 		return callback null, ques
 
+exports.getQuestionForUser = (id, callback) ->
+	schema.Question.find user: id, (err, ques) -> 
+		return callback err if err?
+		return callback null, ques
+
+
 
 exports.postAnswer = (data, callback) ->
 	answer = new schema.Answer

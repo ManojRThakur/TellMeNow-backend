@@ -10,3 +10,5 @@ User login test
 	place: "533fcde9092914dc09026302",
 	tags: ["Tests1","Test2"]
 }
+
+db.places.find({geoLocation: $geoWithin : $center: [ [ 37.402, -122.078 ], 20/3959 ])
