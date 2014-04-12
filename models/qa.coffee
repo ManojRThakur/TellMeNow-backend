@@ -34,10 +34,25 @@ exports.postAnswer = (data, callback) ->
 		return callback null, ans
 
 
-exports.incAnswerVotes = (data, callback) ->
-	schema.Answer.findOneAndUpdate {_id: data._id}, {$inc : {votes : 1}}, (err, ans) ->
+exports.addToVotesDown = (id, userId, callback) ->
+	schema.Answer.votesup.pull userId
+	schema.Answer.findOneAndUpdate {id: id}, {$addToSet : {votesdown : userId}}, (err, ans) ->
 		return callback err if err?
 		return callback null, ans
+
+
+exports.addToVotesUp = (id, userId, callback) ->
+	schema.Answer.votesdown.pull userId
+	schema.Answer.findOneAndUpdate {id: id}, {$addToSet : {votesup : userId}}, (err, ans) ->
+		return callback err if err?
+		return callback null, ans
+
+
+exports.removeVote = (id, userId, callback) ->
+	schema.Answer.votesup.pull userId ->
+		schema.Answer.votesdown.pull userId, (err, ans) ->
+			return callback err if err?
+			return callback null, ans
 
 
 exports.decAnswerVotes = (data, callback) ->
