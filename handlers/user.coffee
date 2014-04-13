@@ -42,5 +42,16 @@ module.exports = {
 							callback err
 				,
 				(err, results)->
-					return done null, results
+					async.map results, (res1, callback1) ->
+						qdb.getAnswersByUserId res1._id, (err, uresp) ->
+							if not err?
+								res1.reputation = 0
+								for answer in uresp
+									res1.reputation += answer.votesup.length - answer.votesdown.length
+								callback null, res1
+							else
+								callback err
+					,
+					(err, results1)->
+						return done null, results1
 }

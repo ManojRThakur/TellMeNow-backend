@@ -40,7 +40,7 @@ module.exports = {
 						callback
 							error : err
 							response : resp
-			socket.on '/suggest/place', (data) ->
+			#socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/suggest/question', (data) ->
 				#autocomplete place query
