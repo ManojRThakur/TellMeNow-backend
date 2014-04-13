@@ -2,7 +2,7 @@
 <script>
   var socket = io.connect('http://127.0.0.1:3000/');
   socket.on('connect', function() {
-
+    alert('connected')
     socket.on('/subscription', function(data){
         alert(JOSN.stringify(data));
     });
@@ -34,7 +34,7 @@
       answer: "534034578288d287163dde85"
     }
 
-    socket.emit('/questions/get', {id:"53401df270d7a9d713b17849"} , function(data) {
+    socket.emit('/questions/get', [ "534023be57a3bd07143ffe27" ] , function(data) {
       alert(JSON.stringify(data));
         socket.emit('/comments/post',req, function(data){
           alert(data);

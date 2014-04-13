@@ -62,14 +62,20 @@ module.exports = {
 			if err
 				return done err
 			else
-				resp = resp.toJSON()
-				for res in resp
-					res.answers = []
+				async.map resp, (res, callback) ->
 					qdb.getAnswersByQuestionId res._id, (err, qresp) ->
+						res = res.toJSON()
 						if not err?
+							res.answers = []
 							for answer in qresp
 								res.answers.push answer._id
-				return done null, resp
+							callback null, res
+						else
+							callback err
+				,
+				(err, results)->
+					console.log results	
+					return done null, results
 	,
 	postAnswer : (data, socket, done) ->
 		qdb.postAnswer data, (err, resp) ->	
