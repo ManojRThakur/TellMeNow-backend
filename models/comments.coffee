@@ -20,3 +20,15 @@ exports.getCommentByQuestionId = (id, callback) ->
 	schema.QuestionComment.find question: id, (err, com) ->
 		return callback err if err?
 		return callback null, com
+
+
+exports.getCommentInArray = (ids, callback) ->
+	schema.QuestionComment.find {_id: {$in: ids}}, (err, com) ->
+		return callback err if err?
+		return callback null, com
+
+
+exports.getCommentByQuestionIdInArray = (ids, callback) ->
+	schema.QuestionComment.find {question: {$in: ids}}, (err, com) ->
+		return callback err if err?
+		return callback null, com

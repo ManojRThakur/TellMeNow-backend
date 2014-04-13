@@ -22,8 +22,8 @@ module.exports = {
 			else
 				return done err
 
-	find : (id, done) ->
-		user.find id, (err, resp) ->
+	find : (ids, done) ->
+		user.getUserByIdInArray ids, (err, resp) ->
 			if not err?
 				return done null, resp
 			else

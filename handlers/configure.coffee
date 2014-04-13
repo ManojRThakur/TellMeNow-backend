@@ -12,7 +12,7 @@ module.exports = {
 	configure : (io , done) ->
 		io.sockets.on 'connection', (socket) ->
 			
-			socket.on '/user/login', (data,callback) ->
+			socket.on '/login', (data,callback) ->
 				#token stuff
 				#get user acces token , get the userId , and if userId is present then dont do anything else add the new user
 				user.login socket, data, (err, resp) ->
@@ -23,24 +23,25 @@ module.exports = {
 						error : err
 						response: resp
 			#add subscription here
-			socket.on '/user/find', (data, callback) ->
-				user.find data.id, (err, resp) ->
-					response = {}
-					response._id = resp._id;
-					response.name = resp.name;
-					response.reputation = resp.reputation;
-					response.notificationsSet = resp.notificationsSet;
-					utils.addSubscription socket, 'users', data.id, () ->
+			socket.on '/users/get', (ids, callback) ->
+				user.find ids, (err, resp) ->
+					utils.addSubscription socket, 'users', ids, () -> #addSubscription has to handle array of ids.
 						callback
 							error: err
-							response: response
+							response: resp
 			#add subscription here
-			socket.on '/questions/get', (data, callback) ->
-				qa.getQuestions data.id, (err, data) ->
-					utils.addSubscription socket, 'questions', data._id, () ->
+			socket.on '/questions/get', (ids, callback) ->
+				qa.getQuestions ids, (err, resp) ->
+					utils.addSubscription socket, 'questions', ids, () -> #addSubscription has to handle array of ids.
 						callback
 							error : err
-							response : data
+							response : resp
+			socket.on '/answers/get', (ids, callback) ->
+				qa.getAnswers ids, (err, resp) ->
+					utils.addSubscription socket, 'answers', ids, () -> #addSubscription has to handle array of ids.
+						callback
+							error : err
+							response : resp
 			socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/suggest/question', (data) ->

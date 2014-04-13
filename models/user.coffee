@@ -28,22 +28,29 @@ exports.updateUserToken = (data, callback) ->
 		return callback null, use
 
 
-exports.incUserReputation = (data, callback) ->
-	schema.User.findOneAndUpdate {_id: data._id}, {$inc : {notificationsSet : 1}}, (err, use) ->
+exports.incUserReputation = (id, callback) ->
+	schema.User.findOneAndUpdate {_id: id}, {$inc : {notificationsSet : 1}}, (err, use) ->
 		return callback err if err?
 		return callback null, use
 
 
-exports.decUserReputation = (data, callback) ->
-	schema.User.findOneAndUpdate {_id: data._id}, {$dec : {notificationsSet : 1}}, (err, use) ->
+exports.decUserReputation = (id, callback) ->
+	schema.User.findOneAndUpdate {_id: id}, {$dec : {notificationsSet : 1}}, (err, use) ->
 		return callback err if err?
 		return callback null, use
 
 
-exports.getUser = (data, callback) ->
-	schema.User.findOne _id: data._id, (err, use) ->
+exports.getUser = (id, callback) ->
+	schema.User.findOne _id: id, (err, use) ->
 		return callback err if err?
 		return callback null, use
+
+
+exports.getUserByIdInArray = (ids, callback) ->
+	schema.User.find {_id: {$in: ids}}, (err, use) ->
+		return callback err if err?
+		return callback null, use
+
 
 exports.find = (id, callback) ->
 	console.log id
@@ -51,7 +58,13 @@ exports.find = (id, callback) ->
 		return callback err if err?
 		return callback null, use.toJSON()
 
-exports.getUserByFacebookId = (data, callback) ->
-	schema.User.findOne facebookId: data.facebookId, (err, use) ->
+exports.getUserByFacebookId = (id, callback) ->
+	schema.User.findOne facebookId: id, (err, use) ->
+		return callback err if err?
+		return callback null, use
+
+
+exports.getUserByFacebookIdInArray = (ids, callback) ->
+	schema.User.find {facebookId: {$in: ids}}, (err, use) ->
 		return callback err if err?
 		return callback null, use

@@ -32,9 +32,8 @@ mongoose.connection.on 'connected',  ->
 		timestamp:
 			type: Date
 			default: Date.now
-		votes: 
-			type: Number
-			default: 0
+		votesup: [type: mongoose.Schema.ObjectId, ref: "Users"]
+		votesdown: [type: mongoose.Schema.ObjectId, ref: "Users"]
 
 
 	exports.AnswerFollowUp = mongoose.model "AnswersFollowUps", new mongoose.Schema
