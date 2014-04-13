@@ -23,7 +23,7 @@ exports.getFollowUpByAnswerId = (id, callback) ->
 
 
 exports.getFollowUpInArray = (ids, callback) ->
-	schema.AnswerFollowUp.findOne {_id: {$in: ids}}, (err, fol) ->
+	schema.AnswerFollowUp.find {_id: {$in: ids}}, (err, fol) ->
 		return callback err if err?
 		return callback null, fol
 

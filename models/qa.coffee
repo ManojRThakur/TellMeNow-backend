@@ -12,14 +12,25 @@ exports.postQuestion = (data, callback) ->
 
 
 exports.getQuestion = (id, callback) ->
-	console.log id
 	schema.Question.findOne _id: id, (err, ques) -> 
+		return callback err if err?
+		return callback null, ques
+
+
+exports.getQuestionByIdInArray = (ids, callback) ->
+	schema.Question.find {_id: {$in: ids}}, (err, ques) -> 
 		return callback err if err?
 		return callback null, ques
 
 
 exports.getQuestionForUser = (id, callback) ->
 	schema.Question.find user: id, (err, ques) -> 
+		return callback err if err?
+		return callback null, ques
+
+
+exports.getQuestionForUserInArray = (ids, callback) ->
+	schema.Question.find {user: {$in: ids}}, (err, ques) -> 
 		return callback err if err?
 		return callback null, ques
 
@@ -55,19 +66,37 @@ exports.removeVote = (id, userId, callback) ->
 			return callback null, ans
 
 
-exports.decAnswerVotes = (data, callback) ->
-	schema.Answer.findOneAndUpdate {_id: data._id}, {$dec : {votes : 1}}, (err, ans) ->
-		return callback err if err?
-		return callback null, ans
-
-
 exports.getAnswersByQuestionId = (id, callback) ->
 	schema.Answer.find question: id, (err, ans) -> 
 		return callback err if err?
 		return callback null, ans
 
 
-exports.getAnswer = (data, callback) ->
-	schema.Answer.findOne _id: data._id, (err, ans) -> 
+exports.getAnswersByQuestionIdInArray = (ids, callback) ->
+	schema.Answer.find {question: {$in: ids}}, (err, ans) -> 
+		return callback err if err?
+		return callback null, ans
+
+
+exports.getAnswer = (id, callback) ->
+	schema.Answer.findOne _id: id, (err, ans) -> 
+		return callback err if err?
+		return callback null, ans
+
+
+exports.getAnswerByIdInArray = (ids, callback) ->
+	schema.Answer.find {_id: {$in: ids}}, (err, ans) -> 
+		return callback err if err?
+		return callback null, ans
+
+
+exports.getAnswersByUserId = (id, callback) ->
+	schema.Answer.find user: id, (err, ans) -> 
+		return callback err if err?
+		return callback null, ans
+
+
+exports.getAnswersByUserIdInArray = (ids, callback) ->
+	schema.Answer.find {user: {$in: ids}}, (err, ans) -> 
 		return callback err if err?
 		return callback null, ans

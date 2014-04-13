@@ -40,6 +40,13 @@ exports.getLocationById = (id, callback) ->
 		return callback err if err?
 		return callback null, pl
 
+
+exports.getLocationByIdInArray = (ids, callback) ->
+	schema.Place.find {_id: {$in: ids}}, (err, pl) ->
+		return callback err if err?
+		return callback null, pl
+
+
 exports.getPlacesByCoordinates = (data, callback) ->
 	console.log data
 	#schema.Place.find geoLocation: $near : $center: [ [ data.geoLocation.lng, data.geoLocation.lat ], 20/3959 ], (err, loc) ->
@@ -59,6 +66,11 @@ exports.postLocationByFacebookId = (facebookId, data, callback) ->
 exports.getLocationByFacebookId = (facebookId, callback) ->
 	facebookId = parseInt(facebookId)
 	schema.Place.find {facebookId: facebookId} , (err, pl) ->
+		return callback err if err?
+		return callback null, pl
+
+exports.getLocationByFacebookIdInArray = (facebookIds, callback) ->
+	schema.Place.find {facebookId: {$in: facebookIds}} , (err, pl) ->
 		return callback err if err?
 		return callback null, pl
 
