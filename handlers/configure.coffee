@@ -42,8 +42,11 @@ module.exports = {
 							response : resp
 			#socket.on '/suggest/place', (data) ->
 				#autocomplete place query
-			socket.on '/suggest/question', (data) ->
-				#autocomplete place query
+			socket.on '/questions/nearby', (data, callback) ->
+				locations.getQuestionsNearby data, (err, resp) ->
+					callback
+						error: err
+						response: resp
 			socket.on '/question/post', (data, callback) ->
 				if not data.user?
 					data.user = socket.userId
