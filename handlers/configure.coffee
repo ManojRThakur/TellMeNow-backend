@@ -62,16 +62,21 @@ module.exports = {
 						error: err
 						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
 			#add subscription here
-			socket.on '/location/get', (data, callback) ->
-				location.getLocationById data.id, (err, resp) ->
-					utils.addSubscription socket, 'locations', data._id, () ->
+			socket.on '/location/get', (ids, callback) ->
+				location.getLocationById ids, (err, resp) ->
+					utils.addSubscription socket, 'locations', ids, () ->
 						callback
 							error: err
-							response: { "_id": resp._id.toString("utf-8"), name: resp.name}
+							response: resp
 			socket.on '/answer/post', (data, callback) ->
 				if not data.user?
 					data.user = socket.userId
 				qa.postAnswer data, socket, (err, resp) ->
+					callback
+						error : err
+						response: resp
+			socket.on '/rating/post', (data, callback) ->
+				qa.postRatings data, socket.userId, (err, resp) ->
 					callback
 						error : err
 						response: resp

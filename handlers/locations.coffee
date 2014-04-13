@@ -17,9 +17,9 @@ module.exports =
 			else
 				return done null, data
 
-	getLocationById : (id, done) ->
-		location.getLocationById id, (err, data) ->
+	getLocationById : (ids, done) ->
+		location.getLocationByIdInArray ids, (err, resp) ->
 			if err?
 				return done err
 			else
-				return done null, data
+				return done null, resp

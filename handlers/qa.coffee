@@ -120,4 +120,24 @@ module.exports = {
 								#		socket.emit '/stream', resp
 						#subscription.sendAnswer resp, socket
 						#done null, resp
-	}
+	,
+	postRatings : (data, userId, done) ->
+		if data.thumbs is 0
+			qdb.removeVote data._id, userId, (err, resp) ->
+				if err?
+					return done err, null
+				else
+					return done null, resp
+		else if data.thumbs is 1
+			qdb.addToVotesUp data._id, userId, (err, resp) ->
+				if err?
+					return done err, null
+				else
+					return done null, resp
+		else
+			qdb.addToVotesDown data._id, userId, (err, resp) ->
+				if err?
+					return done err, null
+				else
+					return done null, resp
+}
