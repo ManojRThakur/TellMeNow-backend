@@ -74,7 +74,26 @@ module.exports = {
 							callback err
 				,
 				(err, results)->
-					console.log results	
+					return done null, results
+	,
+	getAnswers: (ids, userId, done) ->
+		qdb.getAnswerByIdInArray ids, (err, resp) ->
+			if err
+				return done err
+			else
+				async.map resp, (res, callback) ->
+					res = res.toJSON()
+					res.rating = res.votesup.length - res.votesdown.length
+					if(res.votesup.indexOf userId) is -1
+						if(res.votesdown.indexOf userId) is -1
+							res.thumbs = 0
+						else
+							res.thumbs = 2
+					else
+						res.thumbs = 1
+					callback null, res
+				,
+				(err, results)->
 					return done null, results
 	,
 	postAnswer : (data, socket, done) ->

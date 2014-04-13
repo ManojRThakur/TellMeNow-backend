@@ -1,5 +1,8 @@
 user = require '../models/user'
 utils = require './utils'
+qdb = require '../models/qa'
+async = require 'async'
+
 
 module.exports = {
 	login : (socket, data, done) ->	
@@ -24,8 +27,20 @@ module.exports = {
 
 	find : (ids, done) ->
 		user.getUserByIdInArray ids, (err, resp) ->
-			if not err?
-				return done null, resp
-			else
+			if err?
 				return done err
+			else
+				async.map resp, (res, callback) ->
+					qdb.getQuestionForUser res._id, (err, qresp) ->
+						res = res.toJSON()
+						if not err?
+							res.questions = []
+							for question in qresp
+								res.questions.push question._id
+							callback null, res
+						else
+							callback err
+				,
+				(err, results)->
+					return done null, results
 }

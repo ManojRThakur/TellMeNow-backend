@@ -35,7 +35,7 @@ module.exports = {
 							error : err
 							response : resp
 			socket.on '/answers/get', (ids, callback) ->
-				qa.getAnswers ids, (err, resp) ->
+				qa.getAnswers ids, socket.userId, (err, resp) ->
 					utils.addSubscription socket, 'answers', ids, () -> 
 						callback
 							error : err
