@@ -78,7 +78,6 @@ module.exports = {
 				(err, results)->
 					async.map results, (res, callback) ->
 						comments.getCommentByQuestionId res._id, (err, cresp) ->
-							res = res.toJSON()
 							if not err?
 								res.comments = []
 								for comment in cresp
@@ -110,7 +109,6 @@ module.exports = {
 				(err, results)->
 					async.map results, (res, callback) ->
 						followups.getFollowUpByAnswerId res._id, (err, cresp) ->
-							res = res.toJSON()
 							if not err?
 								res.followups = []
 								for followup in cresp
