@@ -43,7 +43,7 @@ module.exports = {
 			#socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/questions/nearby', (data, callback) ->
-				locations.getQuestionsNearby data, (err, resp) ->
+				location.getQuestionsNearby data, (err, resp) ->
 					callback
 						error: err
 						response: resp

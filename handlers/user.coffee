@@ -48,9 +48,9 @@ module.exports = {
 								res1.reputation = 0
 								for answer in uresp
 									res1.reputation += answer.votesup.length - answer.votesdown.length
-								callback null, res1
+								callback1 null, res1
 							else
-								callback err
+								callback1 err
 					,
 					(err, results1)->
 						return done null, results1
