@@ -7,8 +7,6 @@ commentfollowup = require './commentsfollowups'
 
 module.exports = {
 
-	setSocket : (io, done) ->
-
 	configure : (io , done) ->
 		io.sockets.on 'connection', (socket) ->
 			
@@ -25,20 +23,20 @@ module.exports = {
 			#add subscription here
 			socket.on '/users/get', (ids, callback) ->
 				user.find ids, (err, resp) ->
-					utils.addSubscription socket, 'users', ids, () -> #addSubscription has to handle array of ids.
+					utils.addSubscription socket, 'users', ids, () -> 
 						callback
 							error: err
 							response: resp
 			#add subscription here
 			socket.on '/questions/get', (ids, callback) ->
 				qa.getQuestions ids, (err, resp) ->
-					utils.addSubscription socket, 'questions', ids, () -> #addSubscription has to handle array of ids.
+					utils.addSubscription socket, 'questions', ids, () -> 
 						callback
 							error : err
 							response : resp
 			socket.on '/answers/get', (ids, callback) ->
 				qa.getAnswers ids, (err, resp) ->
-					utils.addSubscription socket, 'answers', ids, () -> #addSubscription has to handle array of ids.
+					utils.addSubscription socket, 'answers', ids, () -> 
 						callback
 							error : err
 							response : resp

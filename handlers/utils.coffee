@@ -79,16 +79,15 @@ module.exports = {
 		dbUser.reputation = 0
 		done dbUser
 	,
-	addSubscription : (socket, type, id, done) ->
-		console.log 'addSubscription ' + id
-		if socket.subscription is undefined
-			socket.subscription = {}
-			socket.subscription[type] = []
-		else if socket.subscription isnt undefined and socket.subscription[type] is undefined
-			socket.subscription[type] = []
-		if (socket.subscription[type].indexOf id) is -1
-			socket.subscription[type].push id
-		
+	addSubscription : (socket, type, ids, done) ->
+		for id in ids
+			if socket.subscription is undefined
+				socket.subscription = {}
+				socket.subscription[type] = []
+			else if socket.subscription isnt undefined and socket.subscription[type] is undefined
+				socket.subscription[type] = []
+			if (socket.subscription[type].indexOf id) is -1
+				socket.subscription[type].push id
 		do done
 	,
 	actOnSubscriptionResponse : (socket, type, id, done) ->
@@ -126,7 +125,7 @@ module.exports = {
 												else 
 													console.log 'Success for adding checked in user : {#userId}'
 													# add for notification  
-													exports.actOnSubscriptionResponse socket, 'user', loc._id, () ->
+													module.exports.actOnSubscriptionResponse socket, 'user', loc._id, () ->
 														
 									else
 										userIds = userId
@@ -135,7 +134,7 @@ module.exports = {
 												console.log err
 											else
 												console.log 'Success for adding checked in user : {#userId}'
-												exports.actOnSubscriptionResponse socket, 'location', loc._id, () ->
+												module.exports.actOnSubscriptionResponse socket, 'location', loc._id, () ->
 
 }
 					
