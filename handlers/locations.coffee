@@ -2,13 +2,21 @@ location = require('../models/location');
 
 module.exports = 
 	getSuggestedLocations : (data, done) ->
-		console.log data
-		location.getPlacesByCoordinates data, (err, data) ->
-			console.log err + ' ' + data 
+		location.getPlacesByCoordinates data, (err, resp) ->
 			if err?
 				return done err
 			else
-				return done null, data
+				return done null, resp
+
+	getQuestionsNearby : (data, done) ->
+		location.getPlacesByCoordinates data, (err, resp) ->
+			if err?
+				return done err
+			else
+				results = []
+				for res in resp
+					results.push = res.questions
+				return done null, results
 	
 	getSuggestedLocationsByKeyword : (keyword, done) ->
 		location.getLocationByKeyword keyword, (err, data) ->
@@ -17,9 +25,9 @@ module.exports =
 			else
 				return done null, data
 
-	getLocationById : (id, done) ->
-		location.getLocationById id, (err, data) ->
+	getLocationById : (ids, done) ->
+		location.getLocationByIdInArray ids, (err, resp) ->
 			if err?
 				return done err
 			else
-				return done null, data
+				return done null, resp

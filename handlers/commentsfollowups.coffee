@@ -4,15 +4,15 @@ notification = require '../models/notification'
 utils = require './utils'
 
 module.exports = 
-	getComments : (data, done) ->
-		comments.getCommentByQuestionId data.question, (err, resp) ->
+	getComments : (ids, done) ->
+		comments.getCommentInArray ids, (err, resp) ->
 			if err?
 				return done err
 			else
 				return done null, resp
 
-	getFollowUps : (data, done) ->
-		followups.getFollowUpByAnswerId data.answer, (err, resp) ->
+	getFollowUps : (ids, done) ->
+		followups.getFollowUpInArray ids, (err, resp) ->
 			if err?
 				return done err
 			else

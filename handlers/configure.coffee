@@ -35,15 +35,18 @@ module.exports = {
 							error : err
 							response : resp
 			socket.on '/answers/get', (ids, callback) ->
-				qa.getAnswers ids, (err, resp) ->
+				qa.getAnswers ids, socket.userId, (err, resp) ->
 					utils.addSubscription socket, 'answers', ids, () -> 
 						callback
 							error : err
 							response : resp
-			socket.on '/suggest/place', (data) ->
+			#socket.on '/suggest/place', (data) ->
 				#autocomplete place query
-			socket.on '/suggest/question', (data) ->
-				#autocomplete place query
+			socket.on '/questions/nearby', (data, callback) ->
+				locations.getQuestionsNearby data, (err, resp) ->
+					callback
+						error: err
+						response: resp
 			socket.on '/question/post', (data, callback) ->
 				if not data.user?
 					data.user = socket.userId
@@ -62,12 +65,12 @@ module.exports = {
 						error: err
 						response: resp.map (x) -> _id: x._id.toString("utf8"), name: x.name
 			#add subscription here
-			socket.on '/location/get', (data, callback) ->
-				location.getLocationById data.id, (err, resp) ->
-					utils.addSubscription socket, 'locations', data._id, () ->
+			socket.on '/location/get', (ids, callback) ->
+				location.getLocationById ids, (err, resp) ->
+					utils.addSubscription socket, 'locations', ids, () ->
 						callback
 							error: err
-							response: { "_id": resp._id.toString("utf-8"), name: resp.name}
+							response: resp
 			socket.on '/answer/post', (data, callback) ->
 				if not data.user?
 					data.user = socket.userId
@@ -75,13 +78,18 @@ module.exports = {
 					callback
 						error : err
 						response: resp
-			socket.on '/comments/get', (data, callback) ->
-				commentfollowup.getComments data, (err, resp) ->
+			socket.on '/rating/post', (data, callback) ->
+				qa.postRatings data, socket.userId, (err, resp) ->
 					callback
 						error : err
 						response: resp
-			socket.on '/followups/get', (data, callback) ->
-				commentfollowup.getFollowUps data, (err, resp) ->
+			socket.on '/comments/get', (ids, callback) ->
+				commentfollowup.getComments ids, (err, resp) ->
+					callback
+						error : err
+						response: resp
+			socket.on '/followups/get', (ids, callback) ->
+				commentfollowup.getFollowUps ids, (err, resp) ->
 					callback
 						error : err
 						response: resp

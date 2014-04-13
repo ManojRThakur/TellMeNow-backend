@@ -76,7 +76,6 @@ module.exports = {
 		dbUser.name = userInfo.userName
 		dbUser.token = userInfo.token
 		dbUser.notificationsSet = 5
-		dbUser.reputation = 0
 		done dbUser
 	,
 	addSubscription : (socket, type, ids, done) ->
