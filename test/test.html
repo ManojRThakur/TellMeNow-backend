@@ -7,37 +7,53 @@
         alert(JSON.stringify(data));
     });
 
-   /* var token = {
-    token: "CAAUNgmcrga4BAMNKhmw20VtYB0gbNwjJtth5OhKVVx0O1enjfauBgfi6pq69YsXAwQqfckjnrKWL98gFVy1SdzajN9FtwKkbf5WSYZBqH0oyRHG7doVnZBnLfGSOGAjl83zCSvMtF6hurpZALe5GuNfg78ZCwN3vDyUZBu6lxrwmbrPdJPcR7ZAFb9PGigPFCxulJJxRpsqwZDZD"
+    /*var token = {
+    token: "CAAUNgmcrga4BAHK7lvoVbT19U25AQfKSYkGFLZAK4fTmhLwkYDiVMO5zZChQEGqhHCB6tqZCfC77Kxga7YiYHu072MaWRHpe6FYxcjTSwQZAHzHEdEJeYaaFifVzZCZCfGPXjBhz7UoQYwKOSbdF9bg99Uskm624VyBrAbbbZCxiAiosa1B9ZBcdhr8tjFIe76aa2km8QDU6LQZDZD"
     };
-    socket.emit('/user/login', token, function(data) {
+    socket.emit('/login', token, function(data) {
       console.log(JSON.signify.data);
     })*/
     //var req = {"id":"534944df3a46db9418ada800"};
     
   });
 
-  var req = {
-      text: "Test Comment",
-      user: "534944df3a46db9418ada800",
-      question: "534023be57a3bd07143ffe27"
+  var comments = {
+      text: "Test Comment for LA Hacks",
+      user: "534a5c411b8b95501df74f1c",
+      question: "534a5df41b8b95501df74f36"
     }
 
+  var followups = {
+      text: "Test Follow-Up for LA Hack",
+      user: "534a5c411b8b95501df74f1c",
+      answer: "534a5e3b1b8b95501df74f38"
+    }
+
+  var commentsGet = ["534a5fa41b8b95501df74f3a"];
+
+  var followupsGet = ["534a5fa41b8b95501df74f3b"];
 
     var quest = {
-        text: "What the Fuck? ",
-        user: "533fcde9092914dc09026302",
-        place: "534949ac5a136eae1881159e",
-        tags: ["533fcde9092914dc09026302","533fcde9092914dc09026302"]
+        text: "How is LA Hacks?",
+        user: "534a5c411b8b95501df74f1c",
+        place: "534a5c421b8b95501df74f1d"
     }
-    
+    var quesGet = ["534a5df41b8b95501df74f36"];
     var answer = {
-      text: "Test Follow-Up",
-      user: "534944df3a46db9418ada800",
-      answer: "534034578288d287163dde85"
+      text: "Its an awesome event!!",
+      user: "534a5c411b8b95501df74f1c",
+      question: "534a5df41b8b95501df74f36"
     }
+    var answerGet = ["534a5e3b1b8b95501df74f38"]
+    var rating = {
+      thumbs: 1,
+      _id: "534a5e3b1b8b95501df74f38"
+    }
+    /*socket.emit('/comments/post', comments , function(data) {
+      alert(JSON.stringify(data));
+    });*/
 
-    socket.emit('/question/post', quest , function(data) {
+    socket.emit('/users/get', ["534a5c411b8b95501df74f1c"], function(data) {
       alert(JSON.stringify(data));
     });
 

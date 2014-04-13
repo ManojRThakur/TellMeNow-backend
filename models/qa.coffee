@@ -46,22 +46,22 @@ exports.postAnswer = (data, callback) ->
 
 
 exports.addToVotesDown = (id, userId, callback) ->
-	schema.Answer.votesup.pull userId
-	schema.Answer.findOneAndUpdate {id: id}, {$addToSet : {votesdown : userId}}, (err, ans) ->
-		return callback err if err?
-		return callback null, ans
+	schema.Answer.update {_id: id}, {$pull : {votesup: userId}}, (err, ans) ->
+		schema.Answer.update {_id: id}, {$addToSet : {votesdown : userId}}, (err, ans) ->
+			return callback err if err?
+			return callback null, ans
 
 
 exports.addToVotesUp = (id, userId, callback) ->
-	schema.Answer.votesdown.pull userId
-	schema.Answer.findOneAndUpdate {id: id}, {$addToSet : {votesup : userId}}, (err, ans) ->
-		return callback err if err?
-		return callback null, ans
+	schema.Answer.update {_id: id}, {$pull : {votesdown: userId}}, (err, ans) ->
+		schema.Answer.update {_id: id}, {$addToSet : {votesup : userId}}, (err, ans) ->
+			return callback err if err?
+			return callback null, ans
 
 
 exports.removeVote = (id, userId, callback) ->
-	schema.Answer.votesup.pull userId ->
-		schema.Answer.votesdown.pull userId, (err, ans) ->
+	schema.Answer.update {_id: id}, {$pull : {votesdown: userId}}, (err, ans) ->
+		schema.Answer.update {_id: id}, {$pull : {votesup: userId}}, (err, ans) ->
 			return callback err if err?
 			return callback null, ans
 
