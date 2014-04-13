@@ -15,7 +15,9 @@ module.exports =
 			else
 				results = []
 				for res in resp
-					results.push = res.questions
+					res = res.toJSON()
+					for question in res.questions
+						results.push question
 				return done null, results
 	
 	getSuggestedLocationsByKeyword : (keyword, done) ->
