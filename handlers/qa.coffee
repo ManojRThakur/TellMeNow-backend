@@ -1,8 +1,10 @@
 qdb = require '../models/qa'
 locationsdb = require '../models/location'
+notification = require '../models/notification'
 subscription = require './subscription'
 async = require 'async'
 mapping = require './mapping'
+utils = require './utils'
 
 module.exports = {
 	postQuestion  : (data, socket, done) ->
@@ -15,7 +17,7 @@ module.exports = {
 				async.series [
 					(done) ->
 						console.log resp
-						locationsdb.getLocation resp.place, (err,res) ->
+						locationsdb.getLocationById resp.place, (err,res) ->
 							if not err?
 								for user in res.users
 									mapping.getMapping user, (socket) ->
@@ -31,11 +33,21 @@ module.exports = {
 					(done) ->
 						question = {_id: data.place, questions : resp._id}
 						locationsdb.addQuestions question, (err, dataResp) ->
-							console.log 'Entered 2'
 							if err? 
 								done err
 							else
 								done null, dataResp
+					,
+					(done) ->
+						notif = {}
+						notif.id = resp._id
+						notif.user = resp.user
+						notif.type = 'question' 
+						notification.postNotification notif, (err, resp) ->
+							if err? 
+								done err
+							else
+								done null, resp
 				],
 				(err, results) ->
 					if err? and err.length > 0
@@ -67,11 +79,23 @@ module.exports = {
 			if err
 				done err, null
 			else
-				qdb.getQuestion resp.question, (err, res) ->
-					if not err?
-						mapping.getMapping res.user, (socket) ->
-							if socket?
-								socket.emit '/stream', resp
-				#subscription.sendAnswer resp, socket
-				#done null, resp
-}
+				notif = {}
+				notif.id = resp._id
+				notif.user = resp.user
+				notif.type = 'answer' 
+				notification.postNotification notif, (err, respNotif) ->
+					if err? 
+						return done err
+					else
+						qdb.getQuestion resp.question, (err, res) ->
+							if not err?
+								utils.actOnSubscriptionResponse socket, 'question', resp.question, ()->
+									return done null, resp
+							else
+								return done err
+								#mapping.getMapping res.user, (socket) ->
+								#	if socket?
+								#		socket.emit '/stream', resp
+						#subscription.sendAnswer resp, socket
+						#done null, resp
+	}

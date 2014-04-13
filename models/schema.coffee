@@ -77,8 +77,10 @@ mongoose.connection.on 'connected',  ->
 
 
 	exports.Notification = mongoose.model "Notifications", new mongoose.Schema
+		notificationId: type: mongoose.Schema.ObjectId
+		type: String
+		read: Boolean
 		user: type: mongoose.Schema.ObjectId, ref: "Users"
-		question: type: mongoose.Schema.ObjectId, ref: "Questions"
 		timestamp:
 			type: Date
 			default: Date.now

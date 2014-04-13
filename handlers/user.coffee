@@ -2,7 +2,7 @@ user = require '../models/user'
 utils = require './utils'
 
 module.exports = {
-	login : (data, done) ->	
+	login : (socket, data, done) ->	
 		utils.getUserId data.token, (err, resp) ->
 			if not err?
 				data.userId = resp.userId
@@ -14,10 +14,10 @@ module.exports = {
 						if not res
 							user.postUserInfo dbUser, (err, re) ->
 								return done err if err?
-								utils.populateLocations re._id, data.token
+								utils.populateLocations socket, re._id, data.token
 								return done null, re
 						else
-							utils.populateLocations res._id, data.token
+							utils.populateLocations socket, res._id, data.token
 							return done null, res
 			else
 				return done err

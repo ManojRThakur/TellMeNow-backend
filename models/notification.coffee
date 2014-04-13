@@ -2,26 +2,27 @@ schema = require './schema'
 
 exports.postNotification = (data, callback) ->
 	notification = new schema.Notification
+		notificationId: data.id
 		user: data.user
-		question: data.question
-	notification.save (err, not) ->
+		type: data.type
+		read: false
+	notification.save (err, resp) ->
 		return callback err if err?
-		return callback null, not
+		return callback null, resp
 
 
-exports.getNotification = (data, callback) ->
-	schema.Notification.findOne _id: data._id, (err, not) ->
+exports.getNotification = (id, callback) ->
+	schema.Notification.findOne _id: id, (err, resp) ->
 		return callback err if err?
-		return callback null, not
+		return callback null, resp
 
 
-exports.getNotificationByUser = (data, callback) ->
-	schema.Notification.findOne user: data.user, (err, not) ->
+exports.getNotificationByUser = (user, callback) ->
+	schema.Notification.findOne user: user, (err, resp) ->
 		return callback err if err?
-		return callback null, not
+		return callback null, resp
 
-
-exports.getNotificationByQuestion = (data, callback) ->
-	schema.Notification.findOne question: question.user, (err, not) ->
+exports.getNotificationsByUser = (user, callback) ->
+	schema.Notification.find user: user, (err, resp) ->
 		return callback err if err?
-		return callback null, not
+		return callback null, resp

@@ -1,4 +1,4 @@
-location = require('../models/location');
+location = require '../models/location'
 appid = '1422228611367342'
 appsecret = '29792a86bc83aa86127eec74e868bbb3'
 
@@ -80,6 +80,7 @@ module.exports = {
 		done dbUser
 	,
 	addSubscription : (socket, type, id, done) ->
+		console.log 'addSubscription ' + id
 		if socket.subscription is undefined
 			socket.subscription = {}
 			socket.subscription[type] = []
@@ -87,10 +88,18 @@ module.exports = {
 			socket.subscription[type] = []
 		if (socket.subscription[type].indexOf id) is -1
 			socket.subscription[type].push id
-		console.log socket.subscription
+		
 		do done
 	,
-	populateLocations : (userId, token) -> ## Add pagination
+	actOnSubscriptionResponse : (socket, type, id, done) ->
+		console.log socket.subscription
+		if socket.subscription isnt undefined and socket.subscription[type] isnt undefined 
+			if (socket.subscription[type].indexOf id) >= 0 or type is 'location'
+				console.log 'entered?'
+				socket.emit '/subscription', {"type":type, "id": id} 
+		do done
+	,
+	populateLocations : (socket, userId, token) -> ## Add pagination
 		FB = require 'fb' 
 		FB.setAccessToken(token)
 
@@ -106,25 +115,28 @@ module.exports = {
 									console.log err
 								else 
 									if not loc?
-							
 										location.postLocation dbLoc, (err, loc) ->
 											if err? 
 												console.log err
-											console.log 'Success for location : {#resp.facebookId}'  
+											console.log 'Success for location : {#resp.facebookId}'
 											userIds = userId
 											location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
 												if err? 
 													console.log err
 												else 
 													console.log 'Success for adding checked in user : {#userId}'
+													# add for notification  
+													exports.actOnSubscriptionResponse socket, 'user', loc._id, () ->
+														
 									else
 										userIds = userId
 										location.addUsers { users : userIds, _id : loc._id }, (err, resp) ->
-											if err? 
+											if err?
 												console.log err
-											else 
+											else
 												console.log 'Success for adding checked in user : {#userId}'
-	    						
+												exports.actOnSubscriptionResponse socket, 'location', loc._id, () ->
+
 }
 					
  

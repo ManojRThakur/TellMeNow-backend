@@ -7,13 +7,15 @@ commentfollowup = require './commentsfollowups'
 
 module.exports = {
 
+	setSocket : (io, done) ->
+
 	configure : (io , done) ->
 		io.sockets.on 'connection', (socket) ->
 			
 			socket.on '/user/login', (data,callback) ->
 				#token stuff
 				#get user acces token , get the userId , and if userId is present then dont do anything else add the new user
-				user.login data, (err, resp) ->
+				user.login socket, data, (err, resp) ->
 					if not err?
 						socket.userId = resp._id
 						mapping.addMapping(resp._id, socket)
@@ -35,7 +37,7 @@ module.exports = {
 			#add subscription here
 			socket.on '/questions/get', (data, callback) ->
 				qa.getQuestions data.id, (err, data) ->
-					utils.addSubscription socket, 'questions', data.id, () ->
+					utils.addSubscription socket, 'questions', data._id, () ->
 						callback
 							error : err
 							response : data
@@ -63,7 +65,7 @@ module.exports = {
 			#add subscription here
 			socket.on '/location/get', (data, callback) ->
 				location.getLocationById data.id, (err, resp) ->
-					utils.addSubscription socket, 'locations', data.id, () ->
+					utils.addSubscription socket, 'locations', data._id, () ->
 						callback
 							error: err
 							response: { "_id": resp._id.toString("utf-8"), name: resp.name}
@@ -85,12 +87,12 @@ module.exports = {
 						error : err
 						response: resp
 			socket.on '/comments/post', (data, callback) ->
-				commentfollowup.postComments data, (err, resp) ->
+				commentfollowup.postComments socket, data, (err, resp) ->
 					callback
 						error : err
 						response: resp
 			socket.on '/followups/post', (data, callback) ->
-				commentfollowup.postFollowUps data, (err, resp) ->
+				commentfollowup.postFollowUps socket, data, (err, resp) ->
 					callback
 						error : err
 						response: resp

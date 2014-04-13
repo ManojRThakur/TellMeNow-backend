@@ -46,6 +46,7 @@ exports.getUser = (data, callback) ->
 		return callback null, use
 
 exports.find = (id, callback) ->
+	console.log id
 	schema.User.findOne _id: id, (err, use) ->
 		return callback err if err?
 		return callback null, use.toJSON()

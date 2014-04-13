@@ -4,7 +4,7 @@ server = require('http').createServer(app)
 io = require('socket.io').listen(server)
 handler = require('./handlers/configure')
 
-io.set('log level', 1); 
+io.set('log level', 3); 
 
 server.listen(3001)
 
