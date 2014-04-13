@@ -91,11 +91,9 @@ module.exports = {
 		do done
 	,
 	actOnSubscriptionResponse : (socket, type, id, done) ->
-		console.log socket.subscription
-		if socket.subscription isnt undefined and socket.subscription[type] isnt undefined 
-			if (socket.subscription[type].indexOf id) >= 0 or type is 'location'
-				console.log 'entered?'
-				socket.emit '/subscription', {"type":type, "id": id} 
+		if socket.subscription? and socket.subscription[type]? 
+			if (socket.subscription[type].indexOf id.toString()) >= 0 or type is 'location'
+				socket.emit '/subscription', {"type": type, "id": id} 
 		do done
 	,
 	populateLocations : (socket, userId, token) -> ## Add pagination

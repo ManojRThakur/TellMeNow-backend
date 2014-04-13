@@ -47,5 +47,5 @@ module.exports =
 					if err?
 						return done err
 					else
-						utils.actOnSubscriptionResponse socket, 'answer', resp.answer, ()-> 
+						utils.actOnSubscriptionResponse socket, 'answers', resp.answer, ()-> 
 						return done null, resp

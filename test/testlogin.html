@@ -1,0 +1,18 @@
+<script src="http://127.0.0.1:3000/socket.io/socket.io.js"> </script>
+<script>
+  var socket = io.connect('http://127.0.0.1:3000/');
+  socket.on('connect', function() {
+
+  });
+
+  var token = {"token":"CAAUNgmcrga4BAPzwgw4ZBC4Q38kNpldX8I7ye0NZCTp4Jx1dqqMwuXUut24a27BIGgY8WZAout3ihGgwXQirCKADWladIrpnXtH3FevToVQYZBTsuSUs8ZAgKsmlrk1LSBJyhkXFCLOCsFJqHRLKGTrB2ex1FAhGnR9GNVvGv3jq6szGONN1mfx2fTZCdBphmqs1XxKGXCiwZDZD"}
+
+      socket.on('/stream', function(data){
+          alert(JSON.stringify(data));
+      });
+
+      socket.emit('/login', token , function(data) {
+          console.log(JSON.stringify(data));
+      });
+      
+</script>

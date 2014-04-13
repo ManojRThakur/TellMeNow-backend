@@ -4,7 +4,7 @@
   socket.on('connect', function() {
     alert('connected')
     socket.on('/subscription', function(data){
-        alert(JOSN.stringify(data));
+        alert(JSON.stringify(data));
     });
 
    /* var token = {
@@ -14,17 +14,20 @@
       console.log(JSON.signify.data);
     })*/
     //var req = {"id":"534944df3a46db9418ada800"};
-    var req = {
+    
+  });
+
+  var req = {
       text: "Test Comment",
       user: "534944df3a46db9418ada800",
-      question: "53401df270d7a9d713b17849"
+      question: "534023be57a3bd07143ffe27"
     }
 
 
     var quest = {
         text: "What the Fuck? ",
         user: "533fcde9092914dc09026302",
-        place: "534949ac5a136eae1881158f",
+        place: "534949ac5a136eae1881159e",
         tags: ["533fcde9092914dc09026302","533fcde9092914dc09026302"]
     }
     
@@ -34,13 +37,10 @@
       answer: "534034578288d287163dde85"
     }
 
-    socket.emit('/questions/get', [ "534023be57a3bd07143ffe27" ] , function(data) {
+    socket.emit('/question/post', quest , function(data) {
       alert(JSON.stringify(data));
-        socket.emit('/comments/post',req, function(data){
-          alert(data);
-        })
     });
-  });
+
   //var token = {
 	//token: "CAAUNgmcrga4BAMNKhmw20VtYB0gbNwjJtth5OhKVVx0O1enjfauBgfi6pq69YsXAwQqfckjnrKWL98gFVy1SdzajN9FtwKkbf5WSYZBqH0oyRHG7doVnZBnLfGSOGAjl83zCSvMtF6hurpZALe5GuNfg78ZCwN3vDyUZBu6lxrwmbrPdJPcR7ZAFb9PGigPFCxulJJxRpsqwZDZD"
   //};
