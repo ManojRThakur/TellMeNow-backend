@@ -5,6 +5,9 @@ subscription = require './subscription'
 async = require 'async'
 mapping = require './mapping'
 utils = require './utils'
+comments = require '../models/comments'
+followups = require '../models/followup'
+
 
 module.exports = {
 	postQuestion  : (data, socket, done) ->
@@ -73,7 +76,19 @@ module.exports = {
 							callback err
 				,
 				(err, results)->
-					return done null, results
+					async.map results, (res, callback) ->
+						comments.getCommentByQuestionId res._id, (err, cresp) ->
+							res = res.toJSON()
+							if not err?
+								res.comments = []
+								for comment in cresp
+									res.comments.push comment._id
+								callback null, res
+							else
+								callback err
+					,
+					(err, results1)->
+						return done null, results1
 	,
 	getAnswers: (ids, userId, done) ->
 		qdb.getAnswerByIdInArray ids, (err, resp) ->
@@ -93,7 +108,19 @@ module.exports = {
 					callback null, res
 				,
 				(err, results)->
-					return done null, results
+					async.map results, (res, callback) ->
+						followups.getFollowUpByAnswerId res._id, (err, cresp) ->
+							res = res.toJSON()
+							if not err?
+								res.followups = []
+								for followup in cresp
+									res.followups.push followup._id
+								callback null, res
+							else
+								callback err
+					,
+					(err, results1)->
+						return done null, results1
 	,
 	postAnswer : (data, socket, done) ->
 		qdb.postAnswer data, (err, resp) ->	
