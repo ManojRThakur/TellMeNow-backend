@@ -1,25 +1,26 @@
 {
-  "name": "FBHack",
+  "name": "TellMeNow",
   "version": "0.0.1",
-  "description": "FBHack",
+  "description": "Tell Me Now",
   "dependencies": {
     "async": "latest",
     "mongoose": "latest",
     "express": "latest",
     "coffee-script": "latest",
     "socket.io": "latest",
-    "fb": "latest"
+    "fb": "latest",
+    "moment" : "latest"
   },
   "main": "app.js",
   "scripts": {
-    "test": "FBTest"
+    "test": "TellMeNow"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ManojRThakur/TellMeNow-backend.git"
   },
   "keywords": [
-    "FB"
+    "TellMeNow"
   ],
   "author": "HouseBolter",
   "license": "ISC",
