@@ -80,13 +80,13 @@ module.exports = {
 					callback
 						error : err
 						response: resp
-			socket.on '/comments/get', (data, callback) ->
-				commentfollowup.getComments data, (err, resp) ->
+			socket.on '/comments/get', (ids, callback) ->
+				commentfollowup.getComments ids, (err, resp) ->
 					callback
 						error : err
 						response: resp
-			socket.on '/followups/get', (data, callback) ->
-				commentfollowup.getFollowUps data, (err, resp) ->
+			socket.on '/followups/get', (ids, callback) ->
+				commentfollowup.getFollowUps ids, (err, resp) ->
 					callback
 						error : err
 						response: resp
