@@ -67,9 +67,6 @@ mongoose.connection.on 'connected',  ->
 		facebookId: Number
 		token: String
 		name: String
-		reputation:
-			type: Number
-			default: 0
 		notificationsSet:
 			type: Number
 			default: 5
