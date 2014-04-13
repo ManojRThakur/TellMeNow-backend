@@ -28,18 +28,18 @@ module.exports = {
 							error: err
 							response: resp
 			#add subscription here
-			socket.on '/questions/get', (data, callback) ->
-				qa.getQuestions data.id, (err, data) ->
-					utils.addSubscription socket, 'questions', data.id, () ->
+			socket.on '/questions/get', (ids, callback) ->
+				qa.getQuestions ids, (err, resp) ->
+					utils.addSubscription socket, 'questions', ids, () -> #addSubscription has to handle array of ids.
 						callback
 							error : err
-							response : data
-			socket.on '/answers/get', (data, callback) ->
-				qa.getQuestions data.id, (err, data) ->
-					utils.addSubscription socket, 'questions', data.id, () ->
+							response : resp
+			socket.on '/answers/get', (ids, callback) ->
+				qa.getAnswers ids, (err, resp) ->
+					utils.addSubscription socket, 'answers', ids, () -> #addSubscription has to handle array of ids.
 						callback
 							error : err
-							response : data
+							response : resp
 			socket.on '/suggest/place', (data) ->
 				#autocomplete place query
 			socket.on '/suggest/question', (data) ->
